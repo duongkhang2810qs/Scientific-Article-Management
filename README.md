@@ -1,5 +1,7 @@
 # Software Engineering Final Project
 ## Usage
-npm install --legacy-peer-deps
 
+```bash
+npm install --legacy-peer-deps
 npm start
+```
