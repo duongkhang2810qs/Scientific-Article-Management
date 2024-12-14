@@ -1,5 +1,8 @@
-# Software Engineering Final Project
-## Usage
-npm install --legacy-peer-deps
+# Scientific Article Management Software
 
+## Usage
+
+```bash
+npm install --legacy-peer-deps
 npm start
+```
