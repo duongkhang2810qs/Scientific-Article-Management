@@ -127,6 +127,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .bg-gradient-secondary{
     background: linear-gradient(135deg, #6a11cb, #2575fc); /* Màu gradient xanh tím */
     min-height: 35px; /* Chiều cao tối thiểu bằng chiều cao màn hình */
@@ -135,6 +136,15 @@
     align-items: center;
     justify-content: center;
   }
+
+  .bg-background {
+    background-image: url('/img/users/background.png');
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
   .login-box {
   background: #ffffff; /* Giữ nền trắng cho hộp */
   padding: 30px;
@@ -144,6 +154,7 @@
   width: 100%;
   max-width: 500px;
 }
+
 .btn-primary {
   width: auto; /* Để nút có chiều rộng vừa phải */
   padding: 10px 10px; /* Tạo kích thước nút đẹp hơn */
@@ -154,9 +165,11 @@
   background: linear-gradient(45deg, #007bff, #6610f2); /* Đổi màu nền */
   color: white; /* Đổi màu chữ */
 }
+
 .navbar-dark .nav-link {
   color: rgba(255, 255, 255, 0.8); /* Màu chữ nhạt */
 }
+
 .navbar-dark .nav-link:hover {
   color: white; /* Màu chữ khi hover */
 }
