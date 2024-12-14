@@ -1,55 +1,91 @@
 extends index
 
 block content
-  .col-12
-    .card
-      .card-body
-        | Chào mừng !
+  .container-fluid
+    .row
+      .col-lg-12
+        .card.shadow.mb-4
+          .card-header.py-3.bg-gradient-primary.text-white
+            h5.text-center.m-0.font-weight-bold Quản lý thông báo
 
-  .card-body
-    table.table.table-hover.table-condensed#list
-      colgroup
-        col(width="60%")
-        col(width="10%")
-        col(width="10%")
+          .card-body
+            table.table.table-striped.table-bordered#list
+              colgroup
+                col(width="60%")
+                col(width="20%")
+                col(width="20%")
 
-      thead
-        tr
-          th.text-center Thông báo
-          th.text-center Ngày đăng
-          th.text-center Hoạt động             
-      tbody
-        each notify in data
-          tr
-            td
-              p
-                b= notify.ThongBao
-              p.truncate= notify.NoiDung.split(" ").slice(0, 10).join(" ")
-            td.text-center
-              b= notify.createdAt.toLocaleDateString()
-
-            td.text-center
-
-              form(id=`deleteForm_${notify._id}`, style="display:inline;")
-                button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true") Hoạt động
-                .dropdown-menu
-                  a.dropdown-item.view_project(href=`/notify/${notify._id}`)
-                  -if(user.role == "admin" )
-                    .dropdown-divider
-                    button.dropdown-item(type="button", onclick=`editNotify('${notify._id}')`) Chỉnh sửa
-                    .dropdown-divider
-                    button.dropdown-item(type="button", onclick=`deleteNotify('${notify._id}')`) Xóa
-          include edit_notify
+              thead
+                tr.bg-primary.text-white
+                  th.text-center Thông báo
+                  th.text-center Ngày đăng
+                  th.text-center Hoạt động              
+              tbody
+                each notify in data
+                  tr
+                    td
+                      p.font-weight-bold.text-dark= notify.ThongBao
+                      p.text-muted.font-italic.truncate= notify.NoiDung.split(" ").slice(0, 10).join(" ") + "..."
+                    td.text-center.text-muted
+                      b= notify.createdAt.toLocaleDateString()
+                    td.text-center
+                      .btn-group
+                        button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
+                          i.fa.fa-cogs.mr-1
+                          | Hoạt động
+                        .dropdown-menu
+                          a.dropdown-item.text-primary(href=`/notify/${notify._id}`)
+                            i.fa.fa-eye.mr-2
+                            | Xem
+                          -if(user.role == "admin")
+                            .dropdown-divider
+                            button.dropdown-item.text-warning(type="button", onclick=`editNotify('${notify._id}')`)
+                              i.fa.fa-edit.mr-2
+                              | Chỉnh sửa
+                            .dropdown-divider
+                            button.dropdown-item.text-danger(type="button", onclick=`deleteNotify('${notify._id}')`)
+                              i.fa.fa-trash.mr-2
+                              | Xóa
+                  include edit_notify
 
   style.
-    table p {
-      margin: unset !important;
+    .card {
+      border-radius: 15px;
     }
-    table td {
+    table {
+      font-size: 0.9rem;
+    }
+    table td, table th {
       vertical-align: middle !important;
     }
-
+    table td p {
+      margin: 0 !important;
+    }
+    table .truncate {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-group .dropdown-menu {
+      min-width: 150px;
+    }
   script.
-      $(document).ready(function(){
-        $('#list').dataTable();
+    $(document).ready(function(){
+      $('#list').dataTable({
+        responsive: true,
+        language: {
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          zeroRecords: "Không có dữ liệu",
+          info: "Hiển thị _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Không có bản ghi nào",
+          search: "Tìm kiếm:",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Sau",
+            previous: "Trước"
+          }
+        }
       });
+    });
