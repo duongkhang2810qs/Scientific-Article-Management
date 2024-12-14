@@ -21,7 +21,7 @@ const login = async (id, password) => {
     });
 
     if (res.data.status === "success") {
-      showAlert("success", "Logged in successfully!");
+      showAlert("success", "Đăng nhập thành công!");
       window.setTimeout(() => {
         location.assign("/");
       }, 1500);
@@ -48,6 +48,6 @@ const logout = async () => {
     if ((res.data.status = "success")) location.reload(true);
   } catch (err) {
     console.log(err.response);
-    showAlert("error", "Error logging out! Try again.");
+    showAlert("error", "Đăng xuất thất bại! Hãy thử lại.");
   }
 };

@@ -12024,12 +12024,12 @@ var login = function login(_x, _x2) {
         case 3:
           res = _context.sent;
           if (res.data.status === "success") {
-            (0, _alerts.showAlert)("success", "Logged in successfully!");
+            (0, _alerts.showAlert)("success", "Đăng nhập thành công!");
             window.setTimeout(function () {
               location.assign("/");
             }, 1000);
           } else {
-            (0, _alerts.showAlert)("error", "Login failed. Please check your credentials.");
+            (0, _alerts.showAlert)("error", "Đăng nhập thất bại! Vui lòng kiểm tra thông tin đăng nhập.");
             window.setTimeout(function () {
               location.assign("/");
             }, 1000);
@@ -12040,7 +12040,7 @@ var login = function login(_x, _x2) {
           _context.prev = 7;
           _context.t0 = _context["catch"](0);
           // Handle network errors or unexpected server responses
-          (0, _alerts.showAlert)("error", "An error occurred during the login process.");
+          (0, _alerts.showAlert)("error", "Đã xảy ra lỗi trong quá trình đăng nhập!");
           console.error(_context.t0);
           window.setTimeout(function () {
             location.assign("/");
