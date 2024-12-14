@@ -1,4 +1,4 @@
-# Software Engineering Final Project - Scientific Article Management Software
+# Scientific Article Management Software
 
 ## Usage
 
