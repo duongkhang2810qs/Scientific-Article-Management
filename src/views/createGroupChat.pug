@@ -1,0 +1,57 @@
+div(id=`createChat`).modal
+    div.modal-dialog
+        div.modal-content
+            span.close(onclick="closeCreateChat()") &times;
+            div(id=`createUserChat`, style="display: block;")
+                h2 Tạo chat
+                form( class=`edit-form`)
+                    label Người dùng
+                    select#nguoi-dung.form-control.form-control-sm.select2( style='width: 100%;')
+                    .col-lg-12.text-right.justify-content-center.d-flex
+                        button.btn.btn-primary(type="button" id=`openCreateGroupChat`) Tạo nhóm   
+                        button.btn.btn-primary(type="button", onclick='saveCreateChat()') Lưu
+            div(id=`createGroupChat`,style="display: none;")  
+                h2 Tạo nhóm chat
+                form
+                    label Tên nhóm
+                    input(type="text"  class="form-control" id=`ten-nhom` required)
+                    label Thành viên
+                    select#thanhvien.form-control.form-control-sm.select2.multiple( multiple='', style='width: 100%;')    
+                    .col-lg-12.text-right.justify-content-center.d-flex
+                        button.btn.btn-primary(type="button",  onclick='saveGroupChat()') Lưu 
+                        button.btn(type="submit",  onclick='closeCreateChat()') Hủy 
+                    
+
+
+
+
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gọi API để lấy danh sách người dùng bằng Axios
+            axios.get('/api/v1/users')
+                .then(function(response) {
+                    const users = response.data.data;
+                    const userDropdown = document.getElementById('nguoi-dung');
+                    const userDropdown2 = document.getElementById('thanhvien');
+                    users.forEach(function(user) {
+                        const option = document.createElement('option');
+                        option.value = user._id;
+                        option.text = `${user.name}`;
+                        userDropdown.appendChild(option); 
+                        const option2 = document.createElement('option');
+                        option2.value = user._id;
+                        option2.text = `${user.name}`;  
+                        userDropdown2.appendChild(option2);  
+                                 
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Error fetching user data:', error);
+                });
+        });
+
+
+        
+                    
+            
+          

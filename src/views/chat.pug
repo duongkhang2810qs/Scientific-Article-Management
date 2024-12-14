@@ -1,0 +1,61 @@
+extends index
+
+block content
+  head
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css')
+    link(rel='stylesheet', href='styles/style.css')
+  include createGroupChat
+  .container.mt-5
+    .row
+      .col-md-4
+        .input-group.mb-3
+          input.form-control(type='text', placeholder='Tìm kiếm người dùng...')
+          .input-group-append
+            button.btn.btn-outline-secondary(type='button', title="search")
+              i.fas.fa-search
+            button.btn.btn-outline-secondary(type='button', title="creatNewChat",onclick=`createChat()`)
+              i.fas.fa-plus
+        .list-group#userList
+          
+          each conversation in data
+            if conversation.isGroup
+              button.list-group-item.list-group-item-action(onclick=`loadConversation('${conversation._id}',2,'${user._id}')`) #{conversation.name}
+            else if conversation.participants[0]._id.toString() == user._id
+              button.list-group-item.list-group-item-action(onclick=`loadConversation('${conversation._id}',1,'${user._id}')`) #{conversation.participants[1].name}
+            else
+              button.list-group-item.list-group-item-action(onclick=`loadConversation('${conversation._id}',0,'${user._id}')`) #{conversation.participants[0].name}
+      .col-md-8
+        .card
+          .card-header
+            .user-info.d-flex.align-items-center.justify-content-between
+              .d-flex.align-items-center
+                span#chatName(style='font-size: 1.2rem; font-weight: 500;' data-conversation-id)
+                  
+              .attachment-icons
+                
+                button.btn.btn-outline-secondary(onclick=`startCall('${user._id}')`)
+                  i.fas.fa-phone-alt(alt='Gọi điện', title='Bắt đầu cuộc gọi')
+          .card-body#chatWindow(style='height: 400px; overflow-y: scroll;')
+            .chat-messages
+              
+          .card-footer
+            form#messageForm.d-flex
+              input.form-control(type='text', placeholder='Nhập tin nhắn...', name='message')
+              
+              button.btn.btn-primary(type='submit') Gửi
+      
+  script(src='/mjs/chat.js')
+  script.
+        function createChat() {
+      var form = document.getElementById("createChat");
+      if (form.style.display === "block") {
+        form.style.display = "none";
+      } else {
+        form.style.display = "block";
+      }
+    }
+
+    function closeCreateChat() {
+      var form = document.getElementById("createChat");
+      form.style.display = "none";
+    }

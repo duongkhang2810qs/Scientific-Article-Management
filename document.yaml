@@ -1,0 +1,1645 @@
+openapi: 3.0.3
+info:
+  title:  Research Project Managemen API
+  description: |-
+    This API powers the Research Project Management System, a platform designed for universities to effectively manage and oversee student research projects. It provides the following key functionalities:
+
+    - **Topic Management**: Facilitates the creation, update, and deletion of research topics, as well as the assignment of roles related to each topic.
+    - **User Management**: Handles user registration, profile updates, role assignments, and access control.
+    - **Council Management**: Manages the creation, update, and deletion of councils, and assigns roles to council members.
+    - **Notification Management**: Handles the creation and delivery of notifications to users, ensuring everyone stays informed.
+    - **Conversation Management**: Provides features for creating and managing conversations between users, facilitating communication.
+    - **Message Management**: Manages the sending, receiving, and storage of messages within conversations.
+    
+  contact:
+    email: phuocnin26@gmail.com
+  version: 1.0.0
+
+
+servers:
+  - url: https://nckh-nin.azurewebsites.net/api/v1
+  - url: http://localhost:3030/api/v1
+tags:
+  - name: users
+    description: Operations about user
+  - name: topics
+    description: Operations about topic
+  - name: councils
+    description: Operations about council
+  - name: notifys
+    description: Operations about notify
+  - name: conversations
+    description: Operations about conversation
+  - name: messages
+    description: Operations about message
+paths:
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Logs user into the system
+      description: "login"
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 1
+                password:
+                  type: string
+                  example: 123456
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InBoaW5hIiwiZW1haWwiOiJwaHVvY25pbjI2QGdtYWlsLmNvbSIsImlhdCI6MTYxNjQ4NjQ3MiwiZXhw"
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+  /users/signup:
+    post:
+      tags:
+        - users
+      summary: Sign up user
+      description: "sign up user"
+      operationId: signUpUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/userBody'
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "123456"
+                      required:
+                        - "id"
+                    password:
+                      type: string
+                      example: "123456"
+             
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InBoaW5hIiwiZW1haWwiOiJwaHVvY25pbjI2QGdtYWlsLmNvbSIsImlhdCI6MTYxNjQ4NjQ3MiwiZXhw"
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+  /users/forgotPassword:
+    post:
+      tags:
+        - users
+      summary: Forgot password
+      description: "forgot password"
+      operationId: forgotPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "123456"
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "check email for reset password"
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  message:
+                    type: string
+                    example: "There was an error sending the email. Try again later!"
+  /users/logout:
+    get:
+      tags:
+        - users
+      summary: Logs out current logged in user session
+      description: "logout"
+      operationId: logoutUser
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+        "400":
+          description: Invalid username/password supplied
+  /users: 
+    get:
+      tags:
+        - users
+      summary: Get all users
+      description: "get all users"
+      operationId: getAllUsers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: role
+          in: query
+          description: role
+          required: false
+          schema:
+            type: string
+            default: sinh_vien
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+  /users/me: 
+    get:
+      tags:
+        - users
+      summary: Get user info
+      description: "get user info"
+      operationId: getUserInfo
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - users
+      summary: Update user info
+      description: "update user info"
+      operationId: updateUserInfo
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/userBody'
+                - type: object
+   
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+    delete:
+      tags:
+        - users
+      summary: Delete user info
+      description: "delete user info"
+      operationId: deleteUserInfo
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+        "400":
+          description: Invalid username/password supplied
+  /users/updatePassword: 
+    patch:
+      tags:
+        - users
+      summary: Update user password
+      description: "update user password"
+      operationId: updateUserPassword
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "123456"
+                newPassword:
+                  type: string
+                  example: "123456"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get user by user id
+      description: "get user by user id"
+      operationId: getUserById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - users
+      summary: Update user by user id
+      description: "update user by user id"
+      operationId: updateUserById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/userBody'
+                - type: object
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username/password supplied
+    delete:
+      tags:
+        - users
+      summary: Delete user by user id
+      description: "delete user by user id"
+      operationId: deleteUserById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+        "400":
+          description: Invalid username/password supplied
+  /topics: 
+    get:
+      tags:
+        - topics
+      summary: Get all topics
+      description: "get all topics"
+      operationId: getAllTopics
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: fields
+          in: query
+          description: fields
+          required: false
+          schema:
+            type: string
+            default: TenDeTai
+        - name: sort 
+          in: query
+          description: sort
+          required: false
+          schema:
+            type: string
+            default: TenDeTai
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/Topic'
+                        - type: object
+                          properties:
+                            _id:
+                              type: string
+                              format: mongodb id
+                              example: "65897812024079fe593a8dc2"
+                          
+                    
+        "400":
+          description: Invalid username/password supplied
+    post:
+      tags:
+        - topics
+      summary: Create topic
+      description: "create topic"
+      operationId: createTopic
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Topic'
+               
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/Topic'
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            format: mongodb id
+                            example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+  /topics/{id}:
+    get:
+      tags:
+        - topics
+      summary: Get topic by topic id
+      description: "get topic by topic id"
+      operationId: getTopicById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: topic id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Topic'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - topics
+      summary: Update topic by topic id
+      description: "update topic by topic id"
+      operationId: updateTopicById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: topic id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Topic'
+                - type: object
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Topic'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    delete:
+      tags:
+        - topics
+      summary: Delete topic by topic id
+      description: "delete topic by topic id"
+      operationId: deleteTopicById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: topic id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+  /councils: 
+    get:
+      tags:
+        - councils
+      summary: Get all councils
+      description: "get all councils"
+      operationId: getAllCouncils
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: fields
+          in: query
+          description: fields
+          required: false
+          schema:
+            type: string
+            default: TenHoiDong
+        - name: sort 
+          in: query
+          description: sort
+          required: false
+          schema:
+            type: string
+            default: TenHoiDong
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/council'
+                        - type: object
+                          properties:
+                            _id:
+                              type: string
+                              format: mongodb id
+                              example: "65897812024079fe593a8dc2"
+                          
+                    
+        "400":
+          description: Invalid username/password supplied
+    post:
+      tags:
+        - councils
+      summary: Create council
+      description: "create council"
+      operationId: createCouncil
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/council'
+               
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/council'
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            format: mongodb id
+                            example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied 
+  /councils/{id}:
+    get:
+      tags:
+        - councils
+      summary: Get council by council id
+      description: "get council by council id"
+      operationId: getCouncilById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: council id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/council'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - councils
+      summary: Update council by council id
+      description: "update council by council id"
+      operationId: updateCouncilById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: council id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/council'
+                - type: object
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/council'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    delete:
+      tags:
+        - councils
+      summary: Delete council by council id
+      description: "delete council by council id"
+      operationId: deleteCouncilById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: council id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+  /notifys: 
+    get:
+      tags:
+        - notifys
+      summary: Get all notifys
+      description: "get all notifys"
+      operationId: getAllNotifys
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: fields
+          in: query
+          description: fields
+          required: false
+          schema:
+            type: string
+            default: ThongBao
+        - name: sort 
+          in: query
+          description: sort
+          required: false
+          schema:
+            type: string
+            default: ThongBao
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/Notify'
+                        - type: object
+                          properties:
+                            _id:
+                              type: string
+                              format: mongodb id
+                              example: "65897812024079fe593a8dc2"
+                          
+                    
+        "400":
+          description: Invalid username/password supplied
+    post:
+      tags:
+        - notifys
+      summary: Create notify
+      description: "create notify"
+      operationId: createNotify
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Notify'
+               
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success" 
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/Notify'
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            format: mongodb id
+                            example: "65897812024079fe593a8"
+  /notifys/{id}:
+    get:
+      tags:
+        - notifys
+      summary: Get notify by notify id
+      description: "get notify by notify id"
+      operationId: getNotifyById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: notify id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Notify'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - notifys
+      summary: Update notify by notify id
+      description: "update notify by notify id"
+      operationId: updateNotifyById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: notify id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Notify'
+                - type: object
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Notify'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    delete:
+      tags:
+        - notifys
+      summary: Delete notify by notify id
+      description: "delete notify by notify id"
+      operationId: deleteNotifyById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: notify id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+  /conversations:
+    get:
+      tags:
+        - conversations
+      summary: Get all conversations
+      description: "get all conversations"
+      operationId: getAllConversations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: fields
+          in: query
+          description: fields
+          required: false
+          schema:
+            type: string
+            default: name
+        - name: sort 
+          in: query
+          description: sort
+          required: false
+          schema:
+            type: string
+            default: name
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:                      
+                      type: object
+                      allOf:
+                        - $ref: '#/components/schemas/Conversation'
+                        - type: object
+                          properties:
+                            _id:
+                              type: string
+                              format: mongodb id
+                              example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    post:
+      tags:
+        - conversations
+      summary: Create conversation
+      description: "create conversation"
+      operationId: createConversation
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "Conversation name is required"
+                  example: "Conversation Example"
+                participants:
+                  type: array
+                  items:
+                    type: string
+                    format: mongodb id
+                  description: "Participants are required"
+                  example: ["65897812024079fe593a8dc2","65897812024079fe593a8dc2"]
+                isGroup:
+                  type: boolean
+                  default: false
+                  example: false
+                admin:
+                  type: string
+                  format: mongodb id
+                  description: "Admin is required"
+                  example: "65897812024079fe593a8dc2"
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example: ["image1.jpg", "image2.jpg"]
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    allOf:
+                      - $ref: '#/components/schemas/Conversation'
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            format: mongodb id
+                            example: "65897812024079fe593a8dc2"
+  /conversations/{id}:
+    get:
+      tags:
+        - conversations
+      summary: Get conversation by conversation id
+      description: "get conversation by conversation id"
+      operationId: getConversationById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: conversation id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Conversation'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    patch:
+      tags:
+        - conversations
+      summary: Update conversation by conversation id
+      description: "update conversation by conversation id"
+      operationId: updateConversationById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: conversation id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "Conversation name is required"
+                  example: "Conversation Example"
+                participants:
+                  type: array
+                  items:
+                    type: string
+                    format: mongodb id
+                  description: "Participants are required"
+                  example: ["65897812024079fe593a8dc2","65897812024079fe593a8dc2"]
+                isGroup:
+                  type: boolean
+                  default: false
+                  example: false
+                admin:
+                  type: string
+                  format: mongodb id
+                  description: "Admin is required"
+                  example: "65897812024079fe593a8dc2"
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example: ["image1.jpg", "image2.jpg"]
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/Conversation'
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: mongodb id
+                        example: "65897812024079fe593a8dc2"
+    delete:
+      tags:
+        - conversations
+      summary: Delete conversation by conversation id
+      description: "delete conversation by conversation id"
+      operationId: deleteConversationById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: conversation id
+          required: true
+          schema:
+            type: string
+            format: mongodb id
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+  /messages:
+    get:
+      tags:
+        - messages
+      summary: Get all messages
+      description: "get all messages"
+      operationId: getAllMessages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: fields
+          in: query
+          description: fields
+          required: false
+          schema:
+            type: string
+            default: content
+        - name: sort 
+          in: query
+          description: sort
+          required: false
+          schema:
+            type: string
+            default: content
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:                      
+                      type: object
+                      allOf:
+                        - $ref: '#/components/schemas/Message'
+                        - type: object
+                          properties:
+                            _id:
+                              type: string
+                              format: mongodb id
+                              example: "65897812024079fe593a8dc2"
+        "400":
+          description: Invalid username/password supplied
+    post:
+      tags:
+        - messages
+      summary: Create message
+      description: "create message"
+      operationId: createMessage
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/Message'
+      responses:
+        "200":
+          description: successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    allOf:
+                      - $ref: '#/components/schemas/Message'
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            format: mongodb id
+                            example: "65897812024079fe593a8dc2"
+
+                
+                  
+components:
+  schemas:
+    userBody:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "johndoe@example.com"
+        role:
+          type: string
+          enum: [admin, giang_vien, sinh_vien]
+          default: sinh_vien
+          example: "sinh_vien"
+        birth:
+          type: string
+          format: ISO8601 
+          example: "2023-12-25T12:39:46.941Z"
+        sex:
+          type: boolean
+          example: true
+        Phone:
+          type: string
+          example: "0123456789"
+        Major:
+          type: string
+          example: "Computer Science"
+        Edu_level:
+          type: string
+          example: "Bachelor"
+        avatar:
+          type: string
+          default: default.jpg
+          example: "avatar.jpg"
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        name:
+          type: string
+          example: "John Doe"
+        id:
+          type: string
+          example: "123456"
+        email:
+          type: string
+          example: "johndoe@example.com"
+        role:
+          type: string
+          enum: [admin, giang_vien, sinh_vien]
+          default: sinh_vien
+          example: "sinh_vien"
+        birth:
+          type: string
+          format: ISO8601 
+          example: "2023-12-25T12:39:46.941Z"
+        sex:
+          type: boolean
+          example: true
+        Phone:
+          type: string
+          example: "0123456789"
+        Major:
+          type: string
+          example: "Computer Science"
+        Edu_level:
+          type: string
+          example: "Bachelor"
+        avatar:
+          type: string
+          default: default.jpg
+          example: "avatar.jpg"
+        status:
+          type: string
+          enum: [active, block]
+          example: "active"
+        Topic:
+          type: array
+          items:
+            type: string
+            format: mongodb id
+          example: ["65897812024079fe593a8dc2","65897812024079fe593a8dc2"]
+        createdAt:
+          type: string
+          format: ISO8601
+          example: "2023-12-25T12:39:46.941Z"
+        updatedAt:
+          type: string
+          format: ISO8601
+          example: "2023-12-25T12:39:46.941Z"
+    Topic:
+      type: object
+      properties:
+        ThanhVien:
+          type: array
+          items:
+            type: string
+            format: mongodb id
+          example: ["65897812024079fe593a8dc2","65897812024079fe593a8dc2"]
+        TenDeTai:
+          type: string
+          description: "cần nhập tên đề tài!!!"
+          example: "Tên đề tài mẫu"
+        MoTa:
+          type: string
+          description: "cần nhập mô tả!!!"
+          example: "Mô tả mẫu"
+        GhiChu:
+          type: string
+          example: "Ghi chú mẫu"
+        MaNganh:
+          type: string
+          description: "vui lòng nhập mã ngành"
+          example: "Mã ngành mẫu"
+        KetQua:
+          type: string
+          example: "Kết quả mẫu"
+        TrangThai:
+          type: string
+          enum:
+            - "phân công xét duyệt"
+            - "đang xét duyệt"
+            - "đang thực hiện"
+            - "phân công nghiệm thu"
+            - "đang nghiệm thu"
+            - "hoàn thành"
+            - "hủy"
+          default: "phân công xét duyệt"
+          example: "phân công xét duyệt"
+        NhanXet:
+          type: string
+          example: "Nhận xét mẫu"
+        KinhPhi:
+          type: number
+          example: 1000000
+        Diem:
+          type: number
+          example: 10
+        GiangVien:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        HoiDong:
+          
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        NgayThucHien:
+          type: string
+          format: ISO8601
+          example: "2023-12-25T12:39:46.941Z"
+        NgayKetThuc:
+          type: string
+          format: ISO8601
+          example: "2023-12-25T12:39:46.941Z"
+        file:
+          type: array
+          items:
+            type: string
+          example: ["file1.txt", "file2.txt"]
+    council:
+      type: object
+      properties:
+        TenHoiDong:
+          type: string
+          description: "cần nhập tên hội đồng!!!"
+          example: "Hội đồng mẫu"
+        ChuTich:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        Thuky:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        UyVien1:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+        UyVien2:
+          type: string
+          format: mongodb id
+          example: "65897812024079fe593a8dc2"
+
+    Notify:
+      type: object
+      properties:
+        ThongBao:
+          type: string
+          example: "Thông báo mẫu"
+        NoiDung:
+          type: string
+          example: "Nội dung mẫu"
+        createdAt:
+          type: string
+          format: ISO8601
+          example: "2023-12-25T12:39:46.941Z"
+        file:
+          type: array
+          items:
+            type: string
+          example: ["file1.txt", "file2.txt"]
+    Conversation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: "Conversation name is required"
+          example: "Conversation Example"
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        isGroup:
+          type: boolean
+          default: false
+          example: false
+        admin:
+          $ref: '#/components/schemas/User'
+        images:
+          type: array
+          items:
+            type: string
+          example: ["image1.jpg", "image2.jpg"]
+
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "This is a sample message"
+        sender:
+          $ref: '#/components/schemas/User'
+        conversation:
+          $ref: '#/components/schemas/Conversation'
+        videoCall:
+          type: object
+          properties:
+            hasCall:
+              type: boolean
+              default: false
+              example: false
+            hasRecording:
+              type: boolean
+              default: false
+              example: false
+        files:
+          type: string
+          example: "file2.txt" 
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

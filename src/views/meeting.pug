@@ -1,0 +1,123 @@
+extends index
+
+block content
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Meeting room
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
+    link(rel='stylesheet', href='styles/stylemeet.css')
+    script(src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/axios@0.20.0/dist/axios.min.js")
+    script(src="https://cdn.stringee.com/sdk/web/2.2.1/stringee-web-sdk.min.js")
+  body
+    .container.has-text-centered#app(v-cloak)
+      .container1
+        h1.title Well come meeting
+        div
+          button.button.is-primary(v-if="!room", @click="createRoom") Tạo Meeting
+          button.button.is-info(v-if="!room", @click="joinWithId") Join Meeting
+          button.button.is-info(v-if="!room", @click="publish(true)") Share Desktop
+          button.button.is-danger(v-if="room", @click="endMeeting") End Meeting
+          .info(v-if="roomId")
+            p Bạn đang ở trong room 
+              strong {{roomId}}.
+            p Link vào room:
+              a(v-bind:href="roomUrl", target="_blank") {{roomUrl}}.
+            p Hoặc bạn cũng có thể copy 
+              code {{roomId}} vào room
+        .sub-container
+          #videos
+          footer.zoom-footer
+              button.audio-control.button.share-button
+                img.icon(src="https://png.pngtree.com/png-vector/20220529/ourmid/pngtree-volume-mute-icon-simple-vectors-icon-turn-off-the-sound-flat-vector-png-image_46627988.jpg")
+                label Mute 
+              button.video-control.button.share-button
+                img.icon(src="https://static.thenounproject.com/png/2017737-200.png")
+                label Stop Video 
+              button.share-screen.button.share-button
+                img.icon(src="https://cdn-icons-png.flaticon.com/512/6570/6570412.png")
+                label Share Screen 
+              button.participants.button.share-button
+                img.icon(src="https://cdn3.iconfinder.com/data/icons/ecommerce-329/48/groupsport_teampeopleparticipantusersteammen-512.png")
+                label Participants 
+              button.participants.button.share-button#click-chat(onclick="toggleChatBox()")
+                img.icon(src="https://cdn-icons-png.flaticon.com/512/14/14558.png")
+                label Chat 
+      .container2#openChat.hidden
+        h1.title Chat
+        div.chatBox
+          div.contentChat
+            
+              
+          div.chat-section
+            ul.chat-messages
+            form.chat-form
+              input(type="text", placeholder="Type message here...")
+              button.send-message.button.is-info(type="submit") Send
+    script.
+      function toggleChatBox() {
+        const chatBox = document.getElementById('openChat');
+        // Loại bỏ lớp hidden khi nút được nhấn
+        if (chatBox.classList.contains('hidden')) {
+          chatBox.classList.remove('hidden');
+        } else {
+          chatBox.classList.add('hidden');
+        }
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        const endMeetingButton = document.querySelector('.end-meeting');
+        if (endMeetingButton) {
+          endMeetingButton.addEventListener('click', function() {
+            alert('Cuộc họp đã kết thúc');
+          });
+        }
+
+                document.querySelector('.audio-control').addEventListener('click', function() {
+                    alert('Âm thanh đã được tắt/mở');
+                });
+
+                document.querySelector('.video-control').addEventListener('click', function() {
+                    alert('Video đã được tắt/mở');
+                });
+
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                    .then(stream => {
+                        const videoElement = document.querySelector('.video-placeholder');
+                        videoElement.srcObject = stream;
+                    })
+                    .catch(err => {
+                        console.error('Lỗi khi truy cập camera và microphone:', err);
+                    });
+
+                document.querySelector('.chat-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    let message = document.querySelector('.chat-form input').value;
+                    document.querySelector('.chat-messages').innerHTML += `<li>${message}</li>`;
+                    document.querySelector('.chat-form input').value = '';
+                });
+
+                document.querySelector('.share-screen').addEventListener('click', function() {
+                    navigator.mediaDevices.getDisplayMedia({ video: true })
+                        .then(stream => {
+                            // Thêm logic xử lý stream chia sẻ màn hình
+                        })
+                        .catch(err => {
+                            console.error('Lỗi khi chia sẻ màn hình:', err);
+                        });
+                });
+
+                document.querySelector('.record').addEventListener('click', function() {
+                    alert('Ghi âm bắt đầu/dừng');
+                    // Thêm logic ghi âm tại đây
+                });
+
+                document.querySelector('.create-group').addEventListener('click', function() {
+                    const groupCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+                    alert(`Mã nhóm của bạn là: ${groupCode}`);
+                    // Thêm logic xử lý mã nhóm
+                });
+            });
+    script(src='/mjs/api.js')
+    script(src="/mjs/script.js")

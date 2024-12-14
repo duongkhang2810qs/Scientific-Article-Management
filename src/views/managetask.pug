@@ -1,0 +1,66 @@
+extends index
+
+block content
+    .container-fluid
+        form#manage-task(action='ajax.php?action=save_task', method='POST')
+            input(type='hidden', name='id', value='')
+            input(type='hidden', name='project_id', value='')
+            .form-group
+                label(for='task') Task
+                input.form-control.form-control-sm(type='text', name='task', value='', required)
+            .form-group
+                label(for='description') Mô tả
+                textarea.summernote.form-control(name='description', cols='30', rows='10')
+                
+            .form-group
+                label(for='status') Status
+                select#status.custom-select.custom-select-sm(name='status')
+                    option(value='1') Chưa giải quyết
+                    option(value='2') Đang tiến hành
+                    option(value='3') Hoàn thành
+            .form-group
+                label.control-label(for="") Chọn file
+                .custom-file
+                  input(type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))")
+                  label.custom-file-label(for="customFile") Chọn file
+            hr
+            .col-lg-12.text-right.justify-content-center.d-flex
+                button.btn.btn-primary.mr-2(type="submit") Lưu
+                button.btn.btn-secondary(type="button" onclick="location.href = 'index.php?page=user_list'") Cancel  
+    script.
+        $(document).ready(function(){
+            $('.summernote').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ol', 'ul', 'paragraph', 'height']],
+                    ['table', ['table']],
+                    ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            $('#manage-task').submit(function(e){
+                e.preventDefault();
+                start_load();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    data: new FormData($(this)[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    success: function(resp){
+                        if(resp == 1){
+                            alert_toast('Data successfully saved', 'success');
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1500);
+                        }
+                    }
+                });
+            });
+        });

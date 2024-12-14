@@ -1,0 +1,47 @@
+extends index
+
+block content 
+  .container-fluid
+        .card.card-widget.widget-user.shadow
+            .card-footer
+                .container-fluid
+                    dl
+                        dt Tên hội đồng
+                        -if(council.TenHoiDong)
+                          dd= council.TenHoiDong
+                        -else
+                          dd= "none"
+                    dl
+                        dt Chủ tịch
+                        -if(council.ChuTich)
+                          dd= council.ChuTich.name
+                        -else
+                          dd= "none"
+                    dl 
+                        dt Thư ký
+                        -if(council.Thuky)
+                          dd= council.Thuky.name
+                        -else
+                          dd= "none"
+                    dl 
+                        dt Uỷ viên 1
+                        -if(council.UyVien1)
+                          dd= council.UyVien1.name
+                        -else
+                          dd= "none"
+                    dl 
+                        dt Uỷ viên 2
+                        -if(council.UyVien2)
+                          dd= council.UyVien2.name
+                        -else
+                          dd= "none"
+  .modal-footer.display.p-0.m-0
+        a.btn.btn-secondary(href='/councillist') Đóng
+  style.
+      #uni_modal.modal-footer{
+              display: none
+          }
+      #uni_modal.modal-footer.display{
+          display: flex
+      }
+                

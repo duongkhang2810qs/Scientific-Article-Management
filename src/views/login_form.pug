@@ -1,0 +1,33 @@
+extends login
+
+block card-content
+    div(id=`login` style="display: block;")   
+        .card
+            .card-body.login-card-body
+                form.form--login
+                    .input-group.mb-3
+                        input#id.form-control(type="id", required, placeholder="id")
+                        .input-group-append
+                            .input-group-text
+                                span.fas.fa-envelope
+                    .input-group.mb-3
+                        input#password.form-control(type="password",  required, placeholder="Password")
+                        .input-group-append
+                            .input-group-text
+                                span.fas.fa-lock
+                    .row
+                        .col-8
+                            button.btn(type="button", id=`login-to-quenmk`) Quên mật khẩu
+                        .col-4
+                            button.btn.btn-primary.btn-block(style="font-size: 16px; width:110px", type="submit") Đăng nhập
+    div(id=`quenmk` style="display: none;") 
+        include quenmk 
+    script.
+        document.getElementById('quenmk-to-login').addEventListener('click', function() {
+                        document.getElementById('login').style.display = 'block';
+                        document.getElementById('quenmk').style.display = 'none';         
+            })
+        document.getElementById('login-to-quenmk').addEventListener('click', function() {                
+                        document.getElementById('login').style.display = 'none';
+                        document.getElementById('quenmk').style.display = 'block';
+            })

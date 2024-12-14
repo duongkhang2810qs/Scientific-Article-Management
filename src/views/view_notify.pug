@@ -1,0 +1,25 @@
+extends index 
+
+block content
+    .col-lg-12 
+        .row
+            .col-md-12 
+                .callout.callout-info
+                    .col-md-12
+                        .row
+                            .col-sm-8
+                                dl
+                                    dt
+                                        b.border-bottom.border-primary Thông báo
+                                    dd= data.ThongBao
+                                    dt
+                                        b.border-bottom.border-primary Nội dung
+                                    dd= data.NoiDung
+                            .col-md-4
+                                dl
+                                    dt
+                                        b.border-bottom.border-primary Ngày đăng
+                                    dd= data.createdAt.toLocaleDateString()
+    style.
+    script.
+       

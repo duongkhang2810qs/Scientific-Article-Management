@@ -1,0 +1,87 @@
+extends index
+
+block content
+  .col-lg-12
+    .card
+      .card-body
+        form.new-user
+          .row
+            .col-md-6.border-right
+              .form-group
+                label.control-label Tên
+                input#name(type="text" name="name" class="form-control form-control-sm" required value="")
+              .form-group
+                label.control-label Vai trò người dùng
+                select.custom-select.custom-select-sm(id="roleSelect" name="role")
+                  option(value="sinh_vien") Sinh viên
+                  option(value="giang_vien") Giáo viên
+                  option(value="admin") Admin
+                  input#role(type="hidden" name="role" value="sinh_vien")
+              .form-group
+                label.control-label Avatar
+                .custom-file
+                  input(type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))")
+                  label.custom-file-label(for="customFile") Chọn file
+              
+            .col-md-6
+              .form-group
+                label.control-label Id
+                input#id.form-control.form-control-sm(type="id" name="id" required value="")
+              .form-group
+                label.control-label Mật khẩu
+                input#password.form-control.form-control-sm(type="password" name="password" required value="")
+              .form-group
+                label.label.control-label Xác nhận mật khẩu
+                input(type="password" class="form-control form-control-sm" name="cpass")
+                small#pass_match(data-status='')
+          hr
+          .col-lg-12.text-right.justify-content-center.d-flex
+            button.btn.btn-primary.mr-2(type="submit") Lưu
+            button.btn.btn-secondary(type="button" onclick="location.href = './users'") Cancel
+  style.
+    img#cimg{
+      height: 15vh;
+      width: 15vh;
+      object-fit: cover;
+      border-radius: 100% 100%;
+    }
+  script.
+    $(document).ready(function() {
+      $("#roleSelect").change(function() {
+        // Khi ô select thay đổi, cập nhật giá trị của input #role
+        $("#role").val($(this).val());
+      });
+
+      $('[name="password"],[name="cpass"]').keyup(function() {
+        var pass = $('[name="password"]').val();
+        var cpass = $('[name="cpass"]').val();
+
+        if (cpass == '' || pass == '') {
+          $('#pass_match').attr('data-status', '');
+        } else {
+          if (cpass == pass) {
+            $('#pass_match').attr('data-status', '1').html('<i class="text-success">Khớp mật khẩu.</i>');
+          } else {
+            $('#pass_match').attr('data-status', '2').html('<i class="text-danger">Mật khẩu không khớp.</i>');
+          }
+        }
+
+        // Kiểm tra độ dài mật khẩu
+        if (pass.length < 6) {
+          $('#pass_length').html('<i class="text-danger">Mật khẩu phải có ít nhất 6 ký tự.</i>');
+        } else {
+          $('#pass_length').html('');
+        }
+      });
+
+      // Kiểm tra thêm trước khi gửi biểu mẫu
+      $('.new-user').submit(function() {
+        var pass = $('[name="password"]').val();
+
+        // Kiểm tra độ dài mật khẩu trước khi gửi biểu mẫu
+        if (pass.length < 6) {
+          alert('Mật khẩu phải có ít nhất 6 ký tự.');
+          return false; // Ngăn chặn gửi biểu mẫu
+        }
+      });
+    });

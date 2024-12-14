@@ -1,0 +1,169 @@
+extends index
+
+block content
+  div.container-rating
+    span.heading Thống kê
+
+    hr(style="border:3px solid #f1f1f1")
+    .row
+
+      .side
+        div Tổng số đề tài
+      .middle
+        .bar-container
+          .bar.bar-5(style=`width: 100%;`)= totalTopics
+      .side.right
+        div 100%
+
+      .side
+        div Tỉ lệ hoàn thành
+      .middle
+        .bar-container
+          .bar.bar-4(style=`width: ${completedPercentage}%;`)= completedTopics
+      .side.right
+        div= completedPercentage + '%'
+
+      .side
+        div Tỉ lệ bị hủy
+      .middle
+        .bar-container
+          .bar.bar-3(style=`width: ${cancelledPercentage}%;`)= cancelledTopics
+      .side.right
+        div= cancelledPercentage + '%'
+
+      .side
+        div Tỉ lệ quá hạn
+      .middle
+        .bar-container
+          .bar.bar-2(style=`width: ${overduePercentage}%;`)= overdueTopics
+      .side.right
+        div= overduePercentage + '%'
+
+      .side
+        div Đang thực hiện
+      .middle
+        .bar-container
+          .bar.bar-1(style=`width: ${ongoingPercentage}%;`)= ongoingTopics
+      .side.right
+        div= ongoingPercentage + '%'
+  div.container-rating 
+    span.heading Top 10 đề tài có điểm cao nhất
+    hr(style="border:3px solid #f1f1f1")
+    table
+      thead
+        tr
+          th TOP
+          th Đề tài
+          th Điểm
+      tbody
+        each topic, index in topTopics
+          - let rowClass = ''
+          - if (index === 0) rowClass = 'top1'
+          - else if (index === 1) rowClass = 'top2'
+          - else if (index === 2) rowClass = 'top3'
+          tr(class=rowClass)
+            td= index + 1
+            td= topic.TenDeTai
+            td= topic.Diem
+  style.
+          * {
+              box-sizing: border-box;
+          }
+          .top1 {
+            background-color: #f56342;
+          }
+
+          .top2 {
+            background-color: #f0dd65 !important;;
+          }
+
+          .top3 {
+            background-color: #71f065;
+          }
+          .container-rating {
+                border: 1px solid #ddd;
+                padding: 20px;
+                margin: 20px 0;
+              }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+
+          th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+          }
+
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+
+          th {
+            background-color: #007bff;
+            color: white;
+          }
+          .bar {
+              color: #000;
+          }
+          .heading {
+              font-size: 50px;
+              margin-right: 25px;
+          }
+
+          .fa {
+          font-size: 40px;
+          }
+
+          .checked {
+          color: orange;
+          }
+
+      
+          .side {
+          float: left;
+          width: 15%;
+          margin-top: 10px;
+          }
+
+          .middle {
+          float: left;
+          width: 70%;
+          margin-top: 10px;
+          }
+
+          .right {
+          text-align: right;
+          }
+
+          .row:after {
+          content: "";
+          display: table;
+          clear: both;
+          }
+
+          .bar-container {
+          width: 100%;
+          background-color: #f1f1f1;
+          text-align: center;
+          color: white;
+          }
+
+          .bar-5 {width: 100%; height: 18px; background-color: #04AA6D;}
+          .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+          .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+          .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+          .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+        
+          @media (max-width: 400px) {
+          .side, .middle {
+              width: 100%;
+          }
+          .right {
+              display: none;
+          }
+
+
+          

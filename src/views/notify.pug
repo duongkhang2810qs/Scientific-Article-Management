@@ -1,0 +1,27 @@
+extends index
+
+block content
+
+  .col-lg-12
+    .card
+      .card-body
+        form.notify
+          .row
+            .col-md-12
+              .form-group
+                label.control-label Thông Báo
+                input#thongbao(type="text" name="name" class="form-control form-control-sm" required value="")
+              
+          .row
+            .col-md-12
+              .form-group
+                label.control-label Nội dung 
+                textarea.form-control#noidung(name='noi_dung_thong_bao', cols='50', rows='20').
+          hr
+          .col-lg-12.text-right.justify-content-center.d-flex
+            button.btn.btn-primary.mr-2(type="submit") Lưu
+            button.btn.btn-secondary(type="button" onclick="location.href = './users'") Huỷ
+
+
+
+

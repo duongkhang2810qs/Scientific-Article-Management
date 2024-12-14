@@ -1,0 +1,47 @@
+extends index 
+
+block content
+
+    .container-fluid
+        .card.card-widget.widget-user.shadow
+            .widget-user-header.bg-dark
+                h3.widget-user-username= data.name
+      
+            .widget-user-image
+                img.img-circle.elevation-2(src=`/img/users/${data.avatar}`, alt="User Avatar", style="width: 90px;height:90px;object-fit: cover")
+            .card-footer
+                .container-fluid
+                    dl
+                        dt Role
+                        dd= data.role
+                    dl
+                        dt Mail
+                        dd= data.email
+                    dl 
+                        dt Số điện thoại
+                        dd= data.sdt
+                    dl 
+                        dt Giới tính
+                        if data.gioitinh
+                            dd Nam
+                        else
+                            dd Nữ
+                    if data.role=="sinh_vien" & data.DeTai.length>0 
+                        dl
+                        dt Tổng đề tài
+                        dd= data.DeTai.length
+
+    .modal-footer.display.p-0.m-0
+                
+        if me
+            button.btn.btn-primary(type="button", onclick=`editUser('${user._id}')`) Chỉnh sửa
+            include edituser   
+        a.btn.btn-secondary(href='./') Đóng
+    style.
+        #uni_modal.modal-footer{
+                display: none
+            }
+        #uni_modal.modal-footer.display{
+            display: flex
+        }
+        

@@ -1,0 +1,84 @@
+extends index
+
+block content
+    .col-lg-12
+        .card.card-outline.card-primary
+            .card-body
+                form.newtopic
+        
+                    .row
+                        .col-md-12
+                            .form-group
+                                label.control-label Tên đề tài
+                                input#tendetai.form-control.form-control-sm(type='text', name='name', value='')
+                    .row
+                        .col-md-6
+                            .form-group
+                                label.control-label Ngày bắt đầu
+                                input#ngaybatdau.form-control.form-control-sm(type='date', autocomplete='off', name='start_date', value='')
+                        .col-md-6
+                            .form-group
+                                label.control-label Ngày kết thúc
+                                input#ngayketthuc.form-control.form-control-sm(type='date', autocomplete='off', name='end_date', value='')
+                    .row
+                        .col-md-6
+                            .form-group
+                                label.control-label Mã ngành
+                                input#MaNganh.form-control.form-control-sm(type='text', name='manager_id', value='')
+                        .col-md-6
+                            .form-group
+                                label.control-label Quản lí dự án
+                                select#giangvien.form-control.form-control-sm.select2(name='giangvien', value='')
+                                    option(value='') Chọn quản lí            
+                        .col-md-6
+                            .form-group
+                                label.control-label Thành viên nhóm dự án
+                                select#thanhvien.form-control.form-control-sm.select2.multiple(name='members[]', multiple='', style='width: 100%;')
+                        .col-md-6             
+                            .form-group
+                                label.control-label File đề xuất 
+                                .custom-file
+                                    input(type="file" class="custom-file-input" id=`file_de_tai` name=`file_de_tai` )
+                                    label.custom-file-label(for=`file_de_tai`) Chọn file
+                    .row
+                        .col-md-12
+                            .form-group
+                                label.control-label(for =" ") Mô tả
+                                
+                                input#mota.form-control.form-control-sm(type='text', name='name', value='')
+
+                    .row 
+                        .col-md-10            
+
+                    .card-footer.border-top.border-info
+                        .d-flex.w-100.justify-content-center.align-items-center
+                            button.btn.btn-flat.bg-gradient-primary.mx-2(type='submit') Save
+                            button.btn.btn-flat.bg-gradient-secondary.mx-2(type='button', onclick="location.href='/topics'") Cancel
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gọi API để lấy danh sách người dùng bằng Axios
+            axios.get('/api/v1/users')
+                .then(function(response) {
+                    // Lấy dữ liệu người dùng từ phản hồi
+                    const users = response.data.data;
+                    // Đổ dữ liệu vào thanh chọn
+                    const userDropdown = document.getElementById('thanhvien');
+                    const lecturerDropdown = document.getElementById('giangvien'); // Thêm dòng này
+                    users.forEach(function(user) {
+                        const option = document.createElement('option');
+                        option.value = user._id;
+                        option.text = `${user.name} id:${user.id}`;
+                        userDropdown.appendChild(option);
+
+                        // Thêm dòng sau để thêm vào thanh chọn giảng viên
+                        
+                            const lecturerOption = document.createElement('option');
+                            lecturerOption.value = user._id;
+                            lecturerOption.text = `${user.name} id:${user.id}`;
+                            lecturerDropdown.appendChild(lecturerOption);
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Error fetching user data:', error);
+                });
+        });

@@ -1,0 +1,55 @@
+extends index
+
+block content
+  .col-12
+    .card
+      .card-body
+        | Chào mừng !
+
+  .card-body
+    table.table.table-hover.table-condensed#list
+      colgroup
+        col(width="60%")
+        col(width="10%")
+        col(width="10%")
+
+      thead
+        tr
+          th.text-center Thông báo
+          th.text-center Ngày đăng
+          th.text-center Hoạt động             
+      tbody
+        each notify in data
+          tr
+            td
+              p
+                b= notify.ThongBao
+              p.truncate= notify.NoiDung.split(" ").slice(0, 10).join(" ")
+            td.text-center
+              b= notify.createdAt.toLocaleDateString()
+
+            td.text-center
+
+              form(id=`deleteForm_${notify._id}`, style="display:inline;")
+                button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true") Hoạt động
+                .dropdown-menu
+                  a.dropdown-item.view_project(href=`/notify/${notify._id}`)
+                  -if(user.role == "admin" )
+                    .dropdown-divider
+                    button.dropdown-item(type="button", onclick=`editNotify('${notify._id}')`) Chỉnh sửa
+                    .dropdown-divider
+                    button.dropdown-item(type="button", onclick=`deleteNotify('${notify._id}')`) Xóa
+          include edit_notify
+
+  style.
+    table p {
+      margin: unset !important;
+    }
+    table td {
+      vertical-align: middle !important;
+    }
+
+  script.
+      $(document).ready(function(){
+        $('#list').dataTable();
+      });

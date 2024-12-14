@@ -1,0 +1,46 @@
+extends index
+
+block content	
+  .col-lg-12
+    .card.card-outline.card-success
+      .card-header
+        .card-tools
+          button.btn.btn-block.btn-sm.btn-default.btn-flat.border-primary(type="button",onclick=`new_council()`)
+            i.fa.fa-plus
+            | Thêm hội đồng
+      include newcouncil
+      .card-body
+        table.table.table-hover.table-bordered#list
+          thead
+            tr
+              th.text-center #
+              th Tên hội đồng
+              th Chủ tich
+              th Hoạt động
+          tbody
+            -var count = 1;
+            each council in councils
+              tr
+                th.text-center #{count++}
+                td
+                  b= council.TenHoiDong 
+                td
+                  b= council.ChuTich.name
+                td.text-center
+                  button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")                    
+                    |  Action
+                  .dropdown-menu
+                    a.dropdown-item(href=`/council/${council._id}`) Xem
+                    .dropdown-divider
+                    button.dropdown-item(type="button", onclick=`edit_council('${council._id}')`) Chỉnh sửa
+
+                    .dropdown-divider
+                    button.dropdown-item(type="button", onclick=`deleteCouncil('${council._id}')`) Xóa
+              include edit_council  
+                            
+  script.
+    $(document).ready(function(){
+      $('#list').dataTable()
+    })
+
+
