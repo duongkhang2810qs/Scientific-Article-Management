@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1 Danh sách đề tài
+    table.table
+        thead
+            tr
+                th Tên Đề Tài
+                th Mô Tả
+                th Trạng Thái
+                th Ngày Thực Hiện
+                th Ngày Kết Thúc
+        tbody
+            each topic in data
+                tr
+                    td= topic.TenDeTai
+                    td= topic.MoTa
+                    td= topic.TrangThai
+                    td= topic.NgayThucHien
+                    td= topic.NgayKetThuc
