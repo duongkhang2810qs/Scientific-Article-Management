@@ -1,16 +1,22 @@
-const app = require("./app.js");
-const dotenv = require("dotenv");
-const fs = require("fs");
-const https = require("https");
-const http = require("http");
-const path = require("path");
-const mongoose = require("mongoose");
-const { Server } = require("socket.io");
-const socketServer = require("./socketServer.js");
-//config dotenv
+const app = require("./app.js"); // Import ứng dụng chính
+const dotenv = require("dotenv"); // Thư viện để đọc các biến môi trường từ file .env
+const fs = require("fs"); // Thư viện để làm việc với hệ thống tệp
+const https = require("https"); // Thư viện để tạo HTTPS server
+const http = require("http"); // Thư viện để tạo HTTP server
+const path = require("path"); // Thư viện để xử lý đường dẫn
+const mongoose = require("mongoose"); // Thư viện kết nối MongoDB
+const { Server } = require("socket.io"); // Thư viện cho giao tiếp thời gian thực
+const socketServer = require("./socketServer.js"); // File xử lý socket server
+
+// Cấu hình dotenv để sử dụng biến môi trường
 dotenv.config();
+
+// Lấy cổng từ biến môi trường hoặc sử dụng giá trị mặc định là 8080
 const port = process.env.PORT || 8080;
+
+// Tạo HTTP server và tích hợp ứng dụng chính
 const httpServer = http.createServer(
+  // Có thể cấu hình HTTPS tại đây bằng cách cung cấp key và chứng chỉ SSL
   // {
   //   key: fs.readFileSync(path.join(__dirname, "ssl", "key.pem")),
   //   cert: fs.readFileSync(path.join(__dirname, "ssl", "cert.pem")),
@@ -19,20 +25,27 @@ const httpServer = http.createServer(
   app
 );
 
-//connect DB
+// Kết nối cơ sở dữ liệu MongoDB
 mongoose
   .connect(process.env.DATABASE_LOCAL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useNewUrlParser: true, // Sử dụng trình phân tích URL mới
+    useUnifiedTopology: true, // Sử dụng engine quản lý kết nối mới
   })
   .then(() => {
-    console.log("connect DB oke!");
+    console.log("Kết nối cơ sở dữ liệu thành công!");
+  })
+  .catch((err) => {
+    console.error("Lỗi kết nối cơ sở dữ liệu:", err);
   });
-//socket
+
+// Tích hợp Socket.IO cho giao tiếp thời gian thực
 const io = new Server(httpServer);
 io.on("connection", (socket) => {
-  socketServer(socket, io);
+  console.log("Client kết nối:", socket.id);
+  socketServer(socket, io); // Xử lý các sự kiện từ socket
 });
+
+// Khởi động server
 httpServer.listen(port, () => {
-  console.log(`http://localhost:${port}/`);
+  console.log(`Server đang chạy tại: http://localhost:${port}/`);
 });

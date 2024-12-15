@@ -1,24 +1,27 @@
-const userModels = require("../../models/user.model.js");
-const catchAsync = require("../../utils/catchAsync.js");
-const jwt = require("jsonwebtoken");
-const error = require("../../utils/error.js");
-const sendEmail = require("../../utils/email.js");
-const crypto = require("crypto");
+// XÁC THỰC VÀ QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG 
+
+const userModels = require("../../models/user.model.js"); // tương tác với database 
+const catchAsync = require("../../utils/catchAsync.js"); // xử lý lỗi bất đồng bộ
+const jwt = require("jsonwebtoken"); // thư viện tạo và xác minh Json web tokens, dùng để xác thực người dùng
+const error = require("../../utils/error.js"); // tạo lỗi tùy chỉnh 
+const sendEmail = require("../../utils/email.js"); // gửi email (smtp or dịch vụ email api)
+const crypto = require("crypto"); //module built-in Node.js mã hóa token đặt lại mật khẩu 
+
 
 const createSendToken = (user, statusCode, req, res) => {
-  const id = user._id;
+  const id = user._id; // Sử dụng jsonwebtoken để tạo token với  user._id
   const token = jwt.sign({ id }, process.env.JWT_KEY, {
     expiresIn: process.env.EXPIRES,
   });
 
-  res.cookie("jwt", token, {
+  res.cookie("jwt", token, { // Cài đặt cookie: JWT được lưu trong cookie với tùy chọn httpOnly để tăng bảo mật.
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
 
-  // Remove password from output
-  user.password = undefined;
-
+  //Loại bỏ mật khẩu: user.password = undefined để không trả mật khẩu trong response
+  user.password = undefined; 
+  // Gửi response: Trả về trạng thái thành công cùng token và thông tin người dùng.
   res.status(statusCode).json({
     status: "success",
     token,
@@ -40,9 +43,9 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const user = await userModels.create(req.body);
-  user.password = undefined;
-  res.status(200).json({
+  const user = await userModels.create(req.body); // Tạo user mới: Lưu thông tin user từ req.body vào database.
+  user.password = undefined; // Ẩn mật khẩu: Xóa trường password khỏi response.
+  res.status(200).json({ // Gửi response: Trả thông tin user cùng trạng thái thành công.
     status: "success",
     data: {
       user,
@@ -50,19 +53,21 @@ exports.createUser = catchAsync(async (req, res, next) => {
   });
 });
 
+// Đăng xuất
 exports.logout = (req, res) => {
-  res.cookie("jwt", "loggedout", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.cookie("jwt", "loggedout", { // Ghi đè JWT trong cookie bằng giá trị "loggedout".
+    expires: new Date(Date.now() + 10 * 1000), // Đặt thời gian hết hạn ngắn (10 giây).
     httpOnly: true,
   });
 
   req.user.jwtExpires = Date.now() - 1000;
   req.user.save();
   res.status(200).json({ status: "success" });
-};
+}; // Cập nhật user: Ghi nhận việc hết hạn token trong database.
 
 exports.authMiddleware = catchAsync(async (req, res, next) => {
-  // 1) Getting token and check of it's there
+  // 1) Getting token and check of it's there 
+  // xác minh token: lấy token từ header or cookie
   let token;
   if (
     req.headers.authorization &&
@@ -79,10 +84,10 @@ exports.authMiddleware = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 2) Verification token
+  // 2) Verification token: 
   const decoded = jwt.verify(token, process.env.JWT_KEY);
 
-  // 3) Check user
+  // 3) Check user 
   const currentUser = await userModels.findById(decoded.id);
   if (!currentUser) {
     return next(
@@ -90,17 +95,18 @@ exports.authMiddleware = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 4) Check if tokenExpires
+  // 4) Check if tokenExpires nếu token hết hạn 
   if (currentUser.checkjwtExpires(decoded.iat)) {
     return next(new error(" Please log in again.", 401));
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
+  // Gán user vào req: Nếu hợp lệ, gán thông tin user vào req.user để dùng cho các middleware khác.
   req.user = currentUser;
   res.locals.user = currentUser;
   next();
 });
-
+// Giới hạn quyền: Chỉ cho phép các user có vai trò (role) được chỉ định truy cập.
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
@@ -126,6 +132,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, req, res);
 });
 
+// Tạo token đặt lại mật khẩu, gửi email cho người dùng.
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const { id } = req.body;
   const user = await userModels.findOne({ id });
@@ -159,6 +166,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
+// Xác minh token từ URL, đặt lại mật khẩu và lưu lại.
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on the token
   const hashedToken = crypto
