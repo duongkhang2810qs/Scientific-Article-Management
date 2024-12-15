@@ -13,7 +13,7 @@ const conversationModel = require("../models/conversation.model"); // Model Mong
 exports.home = factory.getAll(notifyModel, "home");
 
 // Hiển thị danh sách đề tài
-exports.getTopics = factory.getAll(topicModel, "project_list");
+exports.getTopics = factory.getAll(topicModel, "topic_list");
 
 // Hiển thị chi tiết một thông báo
 exports.viewNotify = factory.getOne(notifyModel, "view_notify");
