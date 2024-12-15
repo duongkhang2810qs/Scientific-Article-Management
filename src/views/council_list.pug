@@ -1,46 +1,103 @@
 extends index
 
-block content	
-  .col-lg-12
-    .card.card-outline.card-success
-      .card-header
-        .card-tools
-          button.btn.btn-block.btn-sm.btn-default.btn-flat.border-primary(type="button",onclick=`new_council()`)
-            i.fa.fa-plus
-            | Thêm hội đồng
+block content
+  .container.mt-4
+    .card.shadow-lg
+      .card-header.bg-gradient-primary.text-white.d-flex.justify-content-between.align-items-center
+        h5.mb-0.text-light Quản lý hội đồng
+        button.btn.btn-light.text-primary.btn-sm.d-flex.align-items-center(type="button", onclick=`new_council()`)
+          i.fa.fa-plus-circle.mr-1
+          | Thêm hội đồng
       include newcouncil
-      .card-body
-        table.table.table-hover.table-bordered#list
-          thead
+      .card-body.bg-light
+        table.table.table-hover.table-bordered.table-striped#list
+          thead.bg-primary.text-white
             tr
-              th.text-center #
-              th Tên hội đồng
-              th Chủ tich
-              th Hoạt động
+              th.text-center(width="5%") #
+              th.text-left(width="45%") Tên hội đồng
+              th.text-left(width="35%") Chủ tịch
+              th.text-center(width="15%") Hoạt động
           tbody
             -var count = 1;
             each council in councils
               tr
-                th.text-center #{count++}
-                td
-                  b= council.TenHoiDong 
-                td
-                  b= council.ChuTich.name
+                th.text-center= count++
+                td.text-left
+                  b.text-dark= council.TenHoiDong
+                td.text-left
+                  b.text-muted= council.ChuTich.name
                 td.text-center
-                  button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")                    
-                    |  Action
-                  .dropdown-menu
-                    a.dropdown-item(href=`/council/${council._id}`) Xem
-                    .dropdown-divider
-                    button.dropdown-item(type="button", onclick=`edit_council('${council._id}')`) Chỉnh sửa
+                  .btn-group
+                    button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
+                      i.fa.fa-cogs.mr-1
+                      | Hoạt động
+                    .dropdown-menu.dropdown-menu-right
+                      a.dropdown-item.text-primary(href=`/council/${council._id}`)
+                        i.fa.fa-eye.mr-2
+                        | Xem
+                      .dropdown-divider
+                      button.dropdown-item.text-warning(type="button", onclick=`edit_council('${council._id}')`)
+                        i.fa.fa-edit.mr-2
+                        | Chỉnh sửa
+                      .dropdown-divider
+                      button.dropdown-item.text-danger(type="button", onclick=`deleteCouncil('${council._id}')`)
+                        i.fa.fa-trash.mr-2
+                        | Xóa
+              include edit_council
 
-                    .dropdown-divider
-                    button.dropdown-item(type="button", onclick=`deleteCouncil('${council._id}')`) Xóa
-              include edit_council  
-                            
+  style.
+    .card {
+      border-radius: 15px;
+    }
+    table {
+      font-size: 0.9rem;
+    }
+    table td, table th {
+      vertical-align: middle !important;
+    }
+    table td p {
+      margin: 0 !important;
+    }
+    .badge {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+    .btn-group .dropdown-menu {
+      min-width: 150px;
+    }
+    .btn-sm {
+      border-radius: 20px;
+    }
+    .text-muted {
+      color: #6c757d !important;
+    }
+    .badge-warning {
+      background-color: #ffc107;
+      color: #212529;
+    }
+    .badge-danger {
+      background-color: #dc3545;
+    }
+    .card-header .btn {
+      margin-left: auto; /* Moves the button to the right */
+    }
+
   script.
-    $(document).ready(function(){
-      $('#list').dataTable()
-    })
-
-
+    $(document).ready(function() {
+      $('#list').dataTable({
+        responsive: true,
+        language: {
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          zeroRecords: "Không có dữ liệu",
+          info: "Hiển thị _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Không có bản ghi nào",
+          search: "Tìm kiếm:",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Sau",
+            previous: "Trước"
+          }
+        }
+      });
+    });
