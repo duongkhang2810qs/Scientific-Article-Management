@@ -1,13 +1,14 @@
 const userModels = require("../models/user.model.js");
-const catchAsync = require("../utils/catchAsync.js");
+const catchAsync = require("../utils/catchAsync.js"); // tạo và xác minh JSON Web Tokens, phục vụ xác thực người dùng.
 const jwt = require("jsonwebtoken");
 const error = require("../utils/error.js");
 const sendEmail = require("../utils/email.js");
 const crypto = require("crypto");
 
+// kiểm tra và xác thực token trong request để xác định người dùng đang đăng nhập.
 exports.authMiddleware = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
-  let token;
+  let token; // Lấy token từ Authorization header hoặc cookie jwt
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -23,11 +24,11 @@ exports.authMiddleware = catchAsync(async (req, res, next) => {
 
   // 2) Verification token
   //const decoded = await promisify(jwt.verify)(token, process.env.JWT_KEY);
-  const decoded = jwt.verify(token, process.env.JWT_KEY);
+  const decoded = jwt.verify(token, process.env.JWT_KEY); // Giải mã token bằng jwt.verify để lấy thông tin id người dùng
 
   // 3) Check user
   const currentUser = await userModels.findById(decoded.id);
-  if (!currentUser) {
+  if (!currentUser) { // Nếu không tìm thấy user, hoặc token đã hết hạn (checkjwtExpires), tiếp tục middleware.
     return next();
   }
 
@@ -37,11 +38,13 @@ exports.authMiddleware = catchAsync(async (req, res, next) => {
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
+  // Nếu hợp lệ, gán thông tin người dùng (currentUser) vào req.user và res.locals.user
   req.user = currentUser;
   res.locals.user = currentUser;
   next();
 });
 
+// Giới hạn quyền truy cập vào các route dựa trên vai trò (role) của người dùng
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
@@ -51,6 +54,8 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
+// Cho phép người dùng yêu cầu đặt lại mật khẩu nếu quên mật khẩu.
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const { id } = req.body;
   const user = await userModels.findOne({ id });
