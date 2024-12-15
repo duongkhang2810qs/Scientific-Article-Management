@@ -9,7 +9,10 @@ const { Server } = require("socket.io");
 const socketServer = require("./socketServer.js");
 //config dotenv
 dotenv.config();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 const httpServer = http.createServer(
   // {
   //   key: fs.readFileSync(path.join(__dirname, "ssl", "key.pem")),
