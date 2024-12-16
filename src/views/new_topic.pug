@@ -1,11 +1,6 @@
 extends index
 
 block content
-    .container-fluid.mt-4
-    .card.shadow-lg.border-0.rounded-lg
-      .card-header.bg-gradient-primary.text-white.text-center.py-4
-        h3.font-weight-bold.text-uppercase Tạo Đề Tài Mới
-    
     .col-lg-12
         .card.card-outline.card-primary
             .card-body
@@ -57,9 +52,8 @@ block content
 
                     .card-footer.border-top.border-info
                         .d-flex.w-100.justify-content-center.align-items-center
-                            button.btn.btn-flat.bg-gradient-primary.mx-2(type='submit') Lưu
-                            button.btn.btn-flat.bg-gradient-secondary.mx-2(type='button', onclick="location.href='/topics'") Hủy
-    
+                            button.btn.btn-flat.bg-gradient-primary.mx-2(type='submit') Save
+                            button.btn.btn-flat.bg-gradient-secondary.mx-2(type='button', onclick="location.href='/topics'") Cancel
     script.
         document.addEventListener('DOMContentLoaded', function() {
             // Gọi API để lấy danh sách người dùng bằng Axios
