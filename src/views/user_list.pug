@@ -54,8 +54,8 @@ block content
               include edituser                
   style.
     .card {
-      border-radius: 12px;
-      overflow: hidden;
+      border-radius: 15px;
+      //- overflow: hidden;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
     .card-header {
@@ -80,12 +80,20 @@ block content
     .dropdown-menu a i, .dropdown-menu button i {
       margin-right: 8px;
     }
-    .table {
-      margin-top: 20px;
+    table {
       font-size: 0.9rem;
     }
-    .table td, .table th {
-      vertical-align: middle;
+    table td, table th {
+      vertical-align: middle !important;
+    }
+    table td p {
+      margin: 0 !important;
+    }
+    table .truncate {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .badge {
       font-size: 0.85rem;
@@ -94,6 +102,7 @@ block content
     .btn-group .dropdown-menu .dropdown-divider {
       margin: 5px 0;
     }
+    
     .card-header .btn {
       margin-left: auto; /* Moves the button to the right */
     }

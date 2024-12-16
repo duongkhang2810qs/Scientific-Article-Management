@@ -213,3 +213,12 @@
   background: linear-gradient(135deg, #007bff, #6f42c1);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.dropdown-item.text-primary {
+  color: #ffffff !important; /* Màu trắng hoặc màu khác tùy ý */
+}
+
+.dropdown-item.text-primary:hover {
+  color: #f8f9fa !important; /* Màu chữ khi hover */
+  background-color: #0056b3; /* Màu nền khi hover */
+}
