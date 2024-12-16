@@ -1,19 +1,19 @@
 extends index
 
 block content
-  .container-fluid
+  .container-fluid.mt-4
     .row
       .col-lg-12
         .card.shadow.mb-4
-          .card-header.py-3.bg-gradient-primary.text-white
-            h5.text-center.m-0.font-weight-bold Quản lý đề tài và bài báo nghiên cứu khoa học
+          .card-header.py-3.bg-gradient-primary.text-white.d-flex.justify-content-between.align-items-center
+            h5.m-0.font-weight-bold.text-center Quản lý đề tài và bài báo nghiên cứu khoa học
             -if(user.role == 'sinh_vien')
-              button.btn.btn-light.text-primary.btn-sm.float-right(type="button", onclick='window.location.href="/new_topic"')
+              button.btn.btn-light.text-primary.btn-sm.d-flex.align-items-center(type="button", onclick='window.location.href="/new_topic"')
                 i.fa.fa-plus-circle.mr-1
                 | Thêm đề tài
 
           .card-body
-            table.table.table-striped.table-bordered#list
+            table.table.table-hover.table-striped.table-bordered#list
               colgroup
                 col(width="5%")
                 col(width="35%")
@@ -21,21 +21,21 @@ block content
                 col(width="15%")
                 col(width="20%")
                 col(width="10%")
-              thead
-                tr.bg-primary.text-white
+              thead.bg-primary.text-white
+                tr
                   th.text-center #
-                  th Tên đề tài
-                  th Ngày bắt đầu
-                  th Hạn cuối
-                  th Trạng thái
+                  th.text-left Tên đề tài
+                  th.text-center Ngày bắt đầu
+                  th.text-center Hạn cuối
+                  th.text-center Trạng thái
                   th.text-center Hoạt động
               tbody
                 - var count = 1;
                 each topic in data
                   tr  
                     td.text-center= count++                                
-                    td
-                      p.font-weight-bold.text-dark= topic.TenDeTai
+                    td.text-left
+                      p.font-weight-bold.text-dark.mb-0= topic.TenDeTai
                     td.text-center
                       -if(topic.NgayThucHien)
                         span.text-muted= topic.NgayThucHien.toLocaleDateString()
@@ -52,7 +52,7 @@ block content
                         button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                           i.fa.fa-cogs.mr-1
                           | Hoạt động
-                        .dropdown-menu
+                        .dropdown-menu.dropdown-menu-right
                           a.dropdown-item.text-primary(href=`/topic/${topic._id}`)
                             i.fa.fa-eye.mr-2
                             | Xem
@@ -71,39 +71,66 @@ block content
     .card {
       border-radius: 15px;
     }
+
+    /* Table Styling */
     table {
       font-size: 0.9rem;
     }
+
     table td, table th {
       vertical-align: middle !important;
     }
+
     table td p {
       margin: 0 !important;
     }
+
+    /* Badge Styling */
     .badge {
       font-size: 13px;
       padding: 8px 12px;
     }
-    .btn-group .dropdown-menu {
-      min-width: 150px;
-    }
-    .btn-sm {
-      border-radius: 20px;
-    }
-    .text-muted {
-      color: #6c757d !important;
-    }
+
     .badge-warning {
       background-color: #ffc107;
       color: #212529;
     }
+
     .badge-danger {
       background-color: #dc3545;
     }
+
+    /* Button Group */
+    .btn-group .dropdown-menu {
+      min-width: 150px;
+    }
+
+    .btn-sm {
+      border-radius: 20px;
+    }
+
     .card-header .btn {
       margin-left: auto; /* Moves the button to the right */
     }
-    
+
+    /* Text Muted */
+    .text-muted {
+      color: #6c757d !important;
+    }
+
+    /* Table Hover */
+    .table-hover tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
   script.
     $(document).ready(function(){
       $('#list').dataTable({
