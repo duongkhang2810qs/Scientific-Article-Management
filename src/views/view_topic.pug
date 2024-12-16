@@ -2,16 +2,19 @@ extends index
 
 
 block content
-    
+    .container-fluid.mt-4
+    .card.shadow-lg.border-0.rounded-lg
+      .card-header.bg-gradient-primary.text-white.text-center.py-4
+        h3.font-weight-bold.text-uppercase Quản Lý Thông Tin Đề Tài
+
     .col-lg-12
         .row
             .col-md-12
                 .callout.callout-info
-                    
-                            
+
                     .col-md-12
                         .row
-                            
+
                             .col-sm-6
                                 dl
                                     dt
@@ -65,8 +68,6 @@ block content
                                                     dd
                                                         span.class-color Quá hạn
 
-                                                                 
-                                
                         .col-lg-12.text-right.justify-content-center.d-flex
                             button.btn.btn-primary.mr-2(type="button", id='showFile') Xem báo cáo
                             if user.role =="giang_vien" & data.TrangThai=="đang nghiệm thu"
@@ -153,11 +154,10 @@ block content
                             include form.pug
                         #file_form(style="display: none;")
                             iframe(
-                                src=`https://docs.google.com/viewer?url=https://nckh-nin.azurewebsites.net/files/${data.file}` + "&embedded=true",
+                                src=`https://docs.google.com/viewer?url=https://scientific-article-management-trung.onrender.com/files/${data.file}` + "&embedded=true",
                                 style="width: 600px; height: 780px"
                             )
     
-        
     style.
         .center-button {
         margin: 0 10px;
