@@ -20,8 +20,9 @@ const httpServer = http.createServer(
 );
 
 //connect DB
+const dataBase = process.env.AZURE_COSMOS_CONNECTIONSTRING || process.env.DATABASE_LOCAL;
 mongoose
-  .connect(process.env.DATABASE_LOCAL, {
+  .connect(dataBase, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
