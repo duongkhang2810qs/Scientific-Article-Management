@@ -8,6 +8,7 @@ block content
 
       .card-body.p-4.bg-light
         .row
+<<<<<<< HEAD
           .col-md-8
             .bg-white.shadow-sm.p-4.rounded.mb-4
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Thông báo
@@ -73,3 +74,25 @@ block content
     .p-4 {
       padding: 1.5rem !important;
     }
+=======
+            .col-md-12 
+                .callout.callout-info
+                    .col-md-12
+                        .row
+                            .col-sm-8
+                                dl
+                                    dt
+                                        b.border-bottom.border-primary Thông báo
+                                    dd= data.ThongBao
+                                    dt
+                                        b.border-bottom.border-primary Nội dung
+                                    dd= data.NoiDung
+                            .col-md-4
+                                dl
+                                    dt
+                                        b.border-bottom.border-primary Ngày đăng
+                                    dd= data.createdAt.toLocaleDateString('vi-VN')
+    style.
+    script.
+       
+>>>>>>> 70d58600ef179935935ee8b4a8bc44ab8c6bc1f6

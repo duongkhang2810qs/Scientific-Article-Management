@@ -27,7 +27,7 @@ block content
                       p.font-weight-bold.text-dark= notify.ThongBao
                       p.text-muted.font-italic.truncate= notify.NoiDung.split(" ").slice(0, 10).join(" ") + "..."
                     td.text-center.text-muted
-                      b= notify.createdAt.toLocaleDateString()
+                      b= notify.createdAt.toLocaleDateString('vi-VN')
                     td.text-center
                       .btn-group
                         button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")

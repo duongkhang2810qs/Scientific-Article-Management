@@ -37,12 +37,12 @@ block content
                                     dt
                                         b.border-bottom.border-primary Ngày bắt đầu
                                     -if(data.NgayThucHien)
-                                        dd= data.NgayThucHien.toLocaleDateString()
+                                        dd= data.NgayThucHien.toLocaleDateString('vi-VN')
                                 dl
                                     dt
                                         b.border-bottom.border-primary Ngày kết thúc
                                     -if(data.NgayKetThuc)
-                                        dd= data.NgayKetThuc.toLocaleDateString()
+                                        dd= data.NgayKetThuc.toLocaleDateString('vi-VN')
                                 dl
                                     -if(1)
                                         
@@ -74,7 +74,7 @@ block content
                                 button.btn.btn-primary.mr-2(type="button", id="showFormButton") Nghiệm thu
                             td.text-center
                                 button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true").
-                                    Action
+                                    Hoạt động
                                 .dropdown-menu
                                     button.dropdown-item.view_task(href="javascript:void(0)") Chỉnh sửa
                                     .dropdown-divider
@@ -154,7 +154,11 @@ block content
                             include form.pug
                         #file_form(style="display: none;")
                             iframe(
+<<<<<<< HEAD
                                 src=`https://docs.google.com/viewer?url=https://scientific-article-management-trung.onrender.com/files/${data.file}` + "&embedded=true",
+=======
+                                src=`https://docs.google.com/viewer?url=https://scientific-article-management.onrender.com/files/${data.file}` + "&embedded=true",
+>>>>>>> 70d58600ef179935935ee8b4a8bc44ab8c6bc1f6
                                 style="width: 600px; height: 780px"
                             )
     
