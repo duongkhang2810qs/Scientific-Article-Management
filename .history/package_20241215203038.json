@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "start": "nodemon --exec babel-node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node views/server.js",
     "debug": "ndb ./src/server.js",
     "watch:js": "parcel watch ./src/public/mjs/index.js --out-dir ./src/public/mjs --out-file bundle.js",
     "build:js": "parcel watch ./src/public/mjs/index.js --out-dir ./src/public/mjs --out-file bundle.js"
