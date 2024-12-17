@@ -2,12 +2,12 @@ extends index
 
 block content	
   .col-lg-12
-    .card.shadow-lg.border-0
-      .card-header.bg-gradient-primary.text-white.d-flex.justify-content-between.align-items-center
-        h5.text-light.font-weight-bold Quản lý thành viên
-        button.btn.btn-light.text-primary.btn-sm(type="button", onclick='window.location.href="/newuser"')
-          i.fa.fa-plus-circle.mr-1
-          | Thêm thành viên mới
+    .card.shadow.mb-4
+      .card-header.py-3.bg-gradient-primary.text-white
+        h5.text-center.m-0.font-weight-bold Danh Sách Người Dùng
+        //- button.btn.btn-light.text-primary.btn-sm(type="button", onclick='window.location.href="/newuser"')
+        //-   i.fa.fa-plus-circle.mr-1
+        //-   | Thêm Người Dùng
       .card-body.bg-light
         table.table.table-striped.table-bordered.table-hover.mt-3#list
           thead.bg-primary.text-white
@@ -38,7 +38,7 @@ block content
                   .btn-group
                     button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                       i.fa.fa-cogs
-                      |  Action
+                      |  Hoạt động
                     .dropdown-menu
                       a.dropdown-item.text-primary(href=`/users/${user._id}`)
                         i.fa.fa-eye.mr-2
@@ -55,7 +55,7 @@ block content
   style.
     .card {
       border-radius: 12px;
-      overflow: hidden;
+      //- overflow: hidden;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
     .card-header {
@@ -80,12 +80,20 @@ block content
     .dropdown-menu a i, .dropdown-menu button i {
       margin-right: 8px;
     }
-    .table {
-      margin-top: 20px;
+    table {
       font-size: 0.9rem;
     }
-    .table td, .table th {
-      vertical-align: middle;
+    table td, table th {
+      vertical-align: middle !important;
+    }
+    table td p {
+      margin: 0 !important;
+    }
+    table .truncate {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .badge {
       font-size: 0.85rem;

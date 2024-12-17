@@ -3,6 +3,6 @@
 ## Usage
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 npm start
 ```

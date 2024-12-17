@@ -6,7 +6,7 @@ block content
       .col-lg-12
         .card.shadow.mb-4
           .card-header.py-3.bg-gradient-primary.text-white
-            h5.text-center.m-0.font-weight-bold Quản lý thông báo
+            h5.text-center.m-0.font-weight-bold Thông Báo
 
           .card-body
             table.table.table-striped.table-bordered#list
@@ -51,6 +51,12 @@ block content
   style.
     .card {
       border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      background: linear-gradient(45deg, #007bff, #6610f2);
+      padding: 15px;
+      font-size: 1.2rem;
     }
     table {
       font-size: 0.9rem;
@@ -70,7 +76,6 @@ block content
     .btn-group .dropdown-menu {
       min-width: 150px;
     }
-    
   script.
     $(document).ready(function(){
       $('#list').dataTable({
