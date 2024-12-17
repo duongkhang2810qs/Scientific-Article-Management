@@ -20,7 +20,7 @@ block content
                     thead
                         tr
                         th.text-center #
-                        th Project
+                        th Tên đề tài
                         th Ngày bắt đầu
                         th Hạn cuối
                         th Trạng thái
@@ -36,10 +36,10 @@ block content
                                         b= topic.TenDeTai
                                 td
                                     -if(topic.NgayThucHien)
-                                        b= topic.NgayThucHien.toLocaleDateString()
+                                        b= topic.NgayThucHien.toLocaleDateString('vi-VN')
                                 td
                                     -if(topic.NgayKetThuc)
-                                        b= topic.NgayKetThuc.toLocaleDateString()
+                                        b= topic.NgayKetThuc.toLocaleDateString('vi-VN')
                                 td.text-center
                                     span.badge.badge-secondary= topic.TrangThai
                                 td.text-center

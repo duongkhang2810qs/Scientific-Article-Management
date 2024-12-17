@@ -1,47 +1,101 @@
 extends index
 
 block content 
-  .container-fluid
-        .card.card-widget.widget-user.shadow
-            .card-footer
-                .container-fluid
-                    dl
-                        dt Tên hội đồng
-                        -if(council.TenHoiDong)
-                          dd= council.TenHoiDong
-                        -else
-                          dd= "none"
-                    dl
-                        dt Chủ tịch
-                        -if(council.ChuTich)
-                          dd= council.ChuTich.name
-                        -else
-                          dd= "none"
-                    dl 
-                        dt Thư ký
-                        -if(council.Thuky)
-                          dd= council.Thuky.name
-                        -else
-                          dd= "none"
-                    dl 
-                        dt Uỷ viên 1
-                        -if(council.UyVien1)
-                          dd= council.UyVien1.name
-                        -else
-                          dd= "none"
-                    dl 
-                        dt Uỷ viên 2
-                        -if(council.UyVien2)
-                          dd= council.UyVien2.name
-                        -else
-                          dd= "none"
-  .modal-footer.display.p-0.m-0
-        a.btn.btn-secondary(href='/councillist') Đóng
+  .container-fluid.mt-4
+    .card.shadow-lg.border-0.rounded-lg
+      .card-header.bg-gradient-primary.text-white.text-center.py-4
+        h3.font-weight-bold.text-uppercase Chi Tiết Hội Đồng
+
+      .card-body.p-4.bg-light
+        .row
+          .col-md-6.mb-4
+            .bg-white.shadow-sm.p-4.rounded
+              h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Tên Hội Đồng
+              p.text-muted= council.TenHoiDong ? council.TenHoiDong : "none"
+
+          .col-md-6.mb-4
+            .bg-white.shadow-sm.p-4.rounded
+              h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Chủ Tịch
+              p.text-muted= council.ChuTich ? council.ChuTich.name : "none"
+
+          .col-md-6.mb-4
+            .bg-white.shadow-sm.p-4.rounded
+              h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Thư Ký
+              p.text-muted= council.Thuky ? council.Thuky.name : "none"
+
+          .col-md-6.mb-4
+            .bg-white.shadow-sm.p-4.rounded
+              h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Uỷ Viên 1
+              p.text-muted= council.UyVien1 ? council.UyVien1.name : "none"
+
+          .col-md-6.mb-4
+            .bg-white.shadow-sm.p-4.rounded
+              h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Uỷ Viên 2
+              p.text-muted= council.UyVien2 ? council.UyVien2.name : "none"
+
+      .modal-footer.display.p-0.m-0
+        a.btn.btn-secondary.px-4.py-2(href='/councillist')
+          i.fa.fa-times.mr-2
+          | Đóng
+
   style.
-      #uni_modal.modal-footer{
-              display: none
-          }
-      #uni_modal.modal-footer.display{
-          display: flex
-      }
-                
+    .bg-gradient-primary {
+      background: linear-gradient(to right, #4e73df, #224abe);
+    }
+
+    .rounded-lg {
+      border-radius: 15px;
+    }
+
+    .shadow-lg {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .shadow-sm {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .rounded {
+      border-radius: 10px;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: #343a40;
+      text-transform: capitalize;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #6c757d;
+    }
+
+    .border-bottom {
+      border-bottom: 2px solid #007bff !important;
+    }
+
+    .text-primary {
+      color: #007bff !important;
+    }
+
+    .card-header {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .modal-footer {
+      text-align: center;
+    }
+
+    .btn-secondary {
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #6c757d;
+      color: #fff;
+    }
