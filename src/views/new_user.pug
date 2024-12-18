@@ -11,19 +11,19 @@ block content
             .row
               .col-md-6.border-right
                 .form-group
-                  label.control-label.font-weight-bold Tên
+                  label.control-label.font-weight-bold Tên người dùng
                   input#name.form-control.form-control-sm(
                     type="text", name="name", placeholder="Nhập tên người dùng", required
                   )
                 .form-group
-                  label.control-label.font-weight-bold Vai trò người dùng
+                  label.control-label.font-weight-bold Vai trò
                   select.custom-select.custom-select-sm(id="roleSelect" name="role")
                     option(value="sinh_vien") Sinh viên
                     option(value="giang_vien") Giảng viên
                     option(value="admin") Admin
                   input#role(type="hidden" name="role" value="sinh_vien")
                 .form-group
-                  label.control-label.font-weight-bold Avatar
+                  label.control-label.font-weight-bold Ảnh đại diện
                   .custom-file
                     input.custom-file-input(type="file" id="customFile" name="img" onchange="displayImg(this,$(this))")
                     label.custom-file-label(for="customFile") Chọn file

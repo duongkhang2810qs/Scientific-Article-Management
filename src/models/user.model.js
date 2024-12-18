@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  // this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
@@ -81,7 +81,8 @@ userSchema.methods.checkjwtExpires = function (jwtIat) {
 };
 
 userSchema.methods.checkPassword = async function (inputPassword) {
-  return await bcrypt.compare(inputPassword, this.password);
+  // return await bcrypt.compare(inputPassword, this.password);
+  return inputPassword === this.password;
 };
 
 userSchema.methods.createPasswordResetToken = function () {

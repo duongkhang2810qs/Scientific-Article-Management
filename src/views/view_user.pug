@@ -22,7 +22,19 @@ block content
         .row
           .col-md-6.mb-4
             .bg-white.p-3.shadow-sm.rounded
-              i.fa.fa-envelope.text-primary.mr-2
+              i.fa.fa-user.text-primary.mr-2
+              span.font-weight-bold Tài khoản: 
+              span.text-muted= data.id
+
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-key.text-warning.mr-2
+              span.font-weight-bold Mật khẩu: 
+              span.text-muted= data.password
+
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-envelope.text-secondary.mr-2
               span.font-weight-bold Email: 
               span.text-muted= data.email
 
@@ -43,13 +55,13 @@ block content
                 
           .col-md-6.mb-4
             .bg-white.p-3.shadow-sm.rounded
-              i.fa.fa-user.text-warning.mr-2
+              i.fa.fa-venus-mars.text-info.mr-2
               span.font-weight-bold Giới Tính: 
               span.text-muted= data.gioitinh
           
           .col-md-6.mb-4
             .bg-white.p-3.shadow-sm.rounded
-              i.fa.fa-graduation-cap.text-muted.mr-2
+              i.fa.fa-graduation-cap.text-dark.mr-2
               span.font-weight-bold Khoa: 
               span.text-muted= data.khoa
 
