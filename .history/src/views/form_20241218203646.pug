@@ -17,22 +17,22 @@ form(id="form-diem")
                         p 
                             b Đặt vấn đề  
                     td.text-center
-                        b 20
+                        b 40
                 tr
                     td
                         p Đặt vấn đề ngắn gọn, nêu rõ vấn đề cần giải quyết, câu hỏi đánh giá, sự cần thiết, các nghiên cứu đánh giá khác liên quan.
                     td.text-center
-                        p.truncate 10
+                        p.truncate 20
                     td.text-center
-                        input(type='number', name='score', min='0', max='10')
+                        input(type='number', name='score', min='0', max='20')
 
                 tr
                     td
                         p Lý do tiến hành nghiên cứu đánh giá được trình bày thuyết phục.
                     td.text-center
-                        p.truncate 10
+                        p.truncate 20
                     td.text-center
-                        input(type='number', name='score', min='0', max='10')
+                        input(type='number', name='score', min='0', max='20')
 
                 tr 
                     td.text-center
@@ -154,6 +154,7 @@ form(id="form-diem")
 script.
     const scoreInputs = document.querySelectorAll('input[name="score"]');
     const totalScoreElement = document.getElementById('totalScore');
+    const MAX_TOTAL_SCORE = 100;
 
     function updateTotalScore() {
         let totalScore = 0;
@@ -166,6 +167,13 @@ script.
 
             totalScore += Number(input.value);
         });
+
+        // Giới hạn tổng điểm tối đa là 100
+        if (totalScore > MAX_TOTAL_SCORE) {
+            alert(`Tổng điểm không thể vượt quá ${MAX_TOTAL_SCORE}.`);
+            totalScore = MAX_TOTAL_SCORE;
+        }
+
         totalScoreElement.textContent = totalScore;
     }
 
