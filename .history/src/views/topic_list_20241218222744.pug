@@ -1,0 +1,153 @@
+extends index
+
+block content
+  .container-fluid.mt-4
+    .row
+      .col-lg-12
+        .card.shadow.mb-4
+          .card-header.py-3.bg-gradient-primary.text-white
+            h5.m-0.font-weight-bold.text-center Danh Sách Đề Tài
+            -if(user.role == 'sinh_vien')
+              button.btn.btn-light.text-primary.btn-sm.d-flex.align-items-center(type="button", onclick='window.location.href="/new_topic"')
+                i.fa.fa-plus-circle.mr-1
+                | Thêm đề tài
+
+          .card-body
+            table.table.table-hover.table-striped.table-bordered#list
+              colgroup
+                col(width="5%")
+                col(width="35%")
+                col(width="15%")
+                col(width="15%")
+                col(width="20%")
+                col(width="10%")
+              thead.bg-primary.text-white
+                tr
+                  th.text-center #
+                  th.text-left Tên đề tài
+                  th.text-center Ngày bắt đầu
+                  th.text-center Hạn cuối
+                  th.text-center Trạng thái
+                  th.text-center Hoạt động
+              tbody
+                - var count = 1;
+                each topic in data
+                  tr  
+                    td.text-center= count++                                
+                    td.text-left
+                      p.font-weight-bold.text-dark.mb-0= topic.TenDeTai
+                    td.text-center.text-muted
+                      -if(topic.NgayThucHien)
+                        b= topic.NgayThucHien.toLocaleDateString('vi-VN')
+                    td.text-center.text-muted
+                      -if(topic.NgayKetThuc)
+                        b= topic.NgayKetThuc.toLocaleDateString('vi-VN')
+                    td.text-center
+                      -if(topic.NgayKetThuc && new Date(topic.NgayKetThuc).getTime() < new Date().getTime())
+                        span.badge.badge-danger Quá hạn
+                      -else
+                        span.badge.badge-warning= topic.TrangThai
+                    td.text-center
+                      .btn-group
+                        button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
+                          i.fa.fa-cogs.mr-1
+                          | Hoạt động
+                        .dropdown-menu.dropdown-menu-right
+                          a.dropdown-item.text-primary(href=`/topic/${topic._id}`)
+                            i.fa.fa-eye.mr-2
+                            | Xem
+                          -if(topic.TrangThai == "phân công xét duyệt")
+                            .dropdown-divider
+                            button.dropdown-item.text-warning(type="button", onclick=`editTopic('${topic._id}')`)
+                              i.fa.fa-edit.mr-2
+                              | Chỉnh sửa
+                            //- include editTopic
+                            .dropdown-divider
+                            button.dropdown-item.text-danger(type="button", onclick=`deleteTopic('${topic._id}')`)
+                              i.fa.fa-trash.mr-2
+                              | Xóa
+                          
+
+  style.
+    .card {
+      border-radius: 15px;
+    }
+
+    /* Table Styling */
+    table {
+      font-size: 0.9rem;
+    }
+
+    table td, table th {
+      vertical-align: middle !important;
+    }
+
+    table td p {
+      margin: 0 !important;
+    }
+
+    /* Badge Styling */
+    .badge {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+
+    .badge-warning {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .badge-danger {
+      background-color: #dc3545;
+    }
+
+    /* Button Group */
+    .btn-group .dropdown-menu {
+      min-width: 150px;
+    }
+
+    .btn-sm {
+      border-radius: 20px;
+    }
+
+    .card-header .btn {
+      margin-left: auto; /* Moves the button to the right */
+    }
+
+    /* Text Muted */
+    .text-muted {
+      color: #6c757d !important;
+    }
+
+    /* Table Hover */
+    .table-hover tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+  script.
+    $(document).ready(function(){
+      $('#list').dataTable({
+        responsive: true,
+        language: {
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          zeroRecords: "Không có dữ liệu",
+          info: "Hiển thị _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Không có bản ghi nào",
+          search: "Tìm kiếm:",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Sau",
+            previous: "Trước"
+          }
+        }
+      });
+    });

@@ -138,9 +138,9 @@ block content
                                     .form-group
                                         label.control-label 
                                             if data.TrangThai=="phân công xét duyệt"
-                                                b Phân công xét duyệt:
+                                                b phân công xét duyệt:
                                             else if data.TrangThai=="phân công duyệt bài báo"
-                                                b Phân công duyệt bài báo:
+                                                b phân công duyệt bài báo:
                                         select#councilDropdown.form-control.form-control-sm.select2
                                             option(value="" disabled selected)
 
@@ -246,7 +246,7 @@ block content
                     axios
                         .patch(`/api/v1/topics/${topic}`, editedData)
                         .then((response) => {
-                        alert("Phân công thành công")
+                        alert("phân công thành công")
                         window.location.href = "/topics";
                         })
                         .catch((error) => {
