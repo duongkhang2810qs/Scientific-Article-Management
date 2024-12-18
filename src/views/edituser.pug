@@ -12,10 +12,26 @@ div(id=`editUser-${user._id}`).modal
                 input(name="editSdt" class="form-control"  id=`editSdt-${user._id}`  )    
                 label Giới tính
                 select(name="editGioiTinh", class="form-control", id=`editGioiTinh-${user._id}`)
+                    option(value="" disabled selected) -- Chọn giới tính --
                     option(value="true") Nam
                     option(value="false") Nữ
                 label Khoa
-                input(name="editKhoa" class="form-control"  id=`editKhoa-${user._id}` )   
+                select(name="editKhoa" class="form-control"  id=`editKhoa-${user._id}` )
+                    option(value="" disabled selected) -- Chọn khoa --
+                    option(value="Công nghệ Nhiệt - Điện lạnh") Công nghệ Nhiệt - Điện lạnh
+                    option(value="Công nghệ Thông tin") Công nghệ Thông tin
+                    option(value="Cơ khí") Cơ khí
+                    option(value="Cơ khí Giao thông") Cơ khí Giao thông
+                    option(value="Điện") Điện
+                    option(value="Điện tử - Viễn thông") Điện tử - Viễn thông
+                    option(value="Hóa") Hóa
+                    option(value="Khoa học Công nghệ tiên tiến") Khoa học Công nghệ tiên tiến
+                    option(value="Kiến trúc") Kiến trúc
+                    option(value="Môi trường") Môi trường
+                    option(value="Quản lý Dự án") Quản lý Dự án
+                    option(value="Xây dựng Cầu - Đường") Xây dựng Cầu - Đường
+                    option(value="Xây dụng Công trình Thủy") Xây dụng Công trình Thủy
+                    option(value="Xây dựng Dân dụng và Công nghiệp") Xây dựng Dân dụng và Công nghiệp
                 label.control-label Avatar
                 .custom-file
                   input(type="file" class="custom-file-input" id=`photo-${user._id}` name=`photo-${user._id}` )
