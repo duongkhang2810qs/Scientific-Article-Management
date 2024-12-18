@@ -70,8 +70,8 @@ block content
 
                         .col-lg-12.text-right.justify-content-center.d-flex
                             button.btn.btn-primary.mr-2(type="button", id='showFile') Xem báo cáo
-                            if user.role =="giang_vien" & data.TrangThai=="đang duyệt bài báo"
-                                button.btn.btn-primary.mr-2(type="button", id="showFormButton") duyệt bài báo
+                            if user.role =="giang_vien" & data.TrangThai=="đang nghiệm thu"
+                                button.btn.btn-primary.mr-2(type="button", id="showFormButton") Nghiệm thu
                             td.text-center
                                 button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true").
                                     Hoạt động
@@ -130,7 +130,7 @@ block content
                             .card-tools
                                 button.btn.btn-primary.bg-gradient-primary.btn-sm(type="button",onclick=`nop_de_tai('${data._id}')`)
                                     i.fa  Xác nhận
-            if user.role =="admin" & (data.TrangThai=="phân công xét duyệt" || data.TrangThai=="phân công duyệt bài báo")           
+            if user.role =="admin" & (data.TrangThai=="phân công xét duyệt" || data.TrangThai=="phân công nghiệm thu")           
                 .col-md-8
                     .card.card-outline.card-primary
                         .card-header    
@@ -139,8 +139,8 @@ block content
                                         label.control-label 
                                             if data.TrangThai=="phân công xét duyệt"
                                                 b Phân công xét duyệt:
-                                            else if data.TrangThai=="phân công duyệt bài báo"
-                                                b Phân công duyệt bài báo:
+                                            else if data.TrangThai=="phân công nghiệm thu"
+                                                b Phân công nghiệm thu:
                                         select#councilDropdown.form-control.form-control-sm.select2
                                             option(value="" disabled selected)
 
@@ -184,7 +184,7 @@ block content
         document.getElementById('trangthai').value = this.value;
         });
         }
-        if( data.TrangThai=="đang duyệt bài báo"){
+        if( data.TrangThai=="đang nghiệm thu"){
             document.getElementById('showFormButton').addEventListener('click', function() {
                 const display = document.getElementById('myForm').style.display;
                 if(display == 'block')
@@ -204,7 +204,7 @@ block content
         const formData = new FormData();
         if (files.files[0]) {
             formData.append("files", files.files[0]);
-            formData.append("TrangThai", "phân công duyệt bài báo");
+            formData.append("TrangThai", "phân công nghiệm thu");
         } 
         else {
             alert("Chưa chọn file")
@@ -235,8 +235,8 @@ block content
                         TrangThai="đang xét duyệt"
                     }
 
-                    else if(TrangThai=="phân công duyệt bài báo"){
-                        TrangThai="đang duyệt bài báo"
+                    else if(TrangThai=="phân công nghiệm thu"){
+                        TrangThai="đang nghiệm thu"
                     }
                     const editedData = {
                         HoiDong: council.value,
