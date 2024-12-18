@@ -19,7 +19,7 @@ block content
         div
           button.button.is-primary(v-if="!room", @click="createRoom") Tạo Meeting
           button.button.is-info(v-if="!room", @click="joinWithId") Join Meeting
-          button.button.is-info(v-if="!room", @click="publish(true)") Share Desktop
+          button.button.is-info(v-if="!room", @click="publish(true)") 
           button.button.is-danger(v-if="room", @click="endMeeting") End Meeting
           .info(v-if="roomId")
             p.has-text-white Bạn đang ở trong room 
