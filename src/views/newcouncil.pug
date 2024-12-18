@@ -41,22 +41,32 @@ div(id=`newcouncil`).modal
         document.addEventListener('DOMContentLoaded', function() {
             // Gọi API để lấy danh sách người dùng bằng Axios
             axios.get('/api/v1/users')
-            .then(function(response) {
-                // Lấy dữ liệu người dùng từ phản hồi
-                const users = response.data.data;
-                // Đổ dữ liệu vào thanh chọn
-                const userDropdowns = document.querySelectorAll('select[id^="userDropdown"]');
-                users.forEach(function(user) {
-                
-                const option = document.createElement('option');
-                option.value = user._id;
-                option.text = `${user.name} \n\nid:${user.id}`;
-                userDropdowns.forEach(function(userDropdown) {
-                    userDropdown.appendChild(option.cloneNode(true));
+                .then(function(response) {
+                    const users = response.data.data || []; // Lấy dữ liệu từ API và đảm bảo nó không null
+
+                    // Tìm tất cả dropdown có id bắt đầu với "userDropdown"
+                    const userDropdowns = document.querySelectorAll('select[id^="userDropdown"]');
+
+                    // Làm sạch dropdown trước khi thêm mới
+                    userDropdowns.forEach(function(dropdown) {
+                        dropdown.innerHTML = `<option value="" disabled selected></option>`;
+                    });
+
+                    // Lọc danh sách người dùng chỉ lấy giảng viên
+                    const giangVienList = users.filter(user => user.role === 'giang_vien');
+
+                    // Thêm dữ liệu giảng viên vào dropdown
+                    giangVienList.forEach(function(user) {
+                        const option = document.createElement('option');
+                        option.value = user._id;
+                        option.textContent = `${user.name} (ID: ${user.id})`;
+                        userDropdowns.forEach(function(dropdown) {
+                            dropdown.appendChild(option.cloneNode(true));
+                        });
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Error fetching user data:', error);
                 });
-                });
-            })
-            .catch(function(error) {
-                console.error('Error fetching user data:', error);
-            });
-        });
+        }, { once: true }); // Chỉ chạy một lần
+
