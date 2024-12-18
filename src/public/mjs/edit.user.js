@@ -24,7 +24,7 @@ function showEditFormUser(userData) {
   if (userData.name) editName.value = userData.name;
   if (userData.email) editEmail.value = userData.email;
   if (userData.sdt) editSdt.value = userData.sdt;
-  if (userData.gioitinh != undefined) editGioiTinh.value = userData.gioitinh;
+  if (userData.gioitinh) editGioiTinh.value = userData.gioitinh;
   if (userData.khoa) editKhoa.value = userData.khoa;
 
   // Hiển thị modal chỉnh sửa

@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema(
       type: Date,
     },
     gioitinh: {
-      type: Boolean,
+      type: String,
+      // type: Boolean,
     },
     sdt: String,
     khoa: String,
