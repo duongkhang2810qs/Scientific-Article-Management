@@ -6,6 +6,8 @@ const notifyRouter = require("./routes/notify.router.js");
 const councilRouter = require("./routes/council.router.js");
 const conversationRouter = require("./routes/conversation.router.js");
 const messageRouter = require("./routes/message.router.js");
+const crawlImmediately = require("./routes/crawl.router.js"); // Import hàm crawl
+
 const cors = require("cors");
 const viewRouter = require("./routes/view.router.js");
 const bodyParser = require("body-parser");
@@ -30,6 +32,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use("/api/v1/crawl", crawlImmediately); // Thêm route cho crawl
+crawlImmediately();
+
 // doc swagger
 const file = fs.readFileSync("./document.yaml", "utf8");
 const swaggerDocument = YAML.parse(file);
