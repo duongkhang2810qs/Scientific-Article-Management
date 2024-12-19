@@ -60,7 +60,7 @@ exports.getRating = catchAsync(async (req, res, next) => {
   const totalTopics = await topicModel.countDocuments();
   const completedTopics = await topicModel.countDocuments({
     TrangThai: "hoàn thành",
-    TrangThai: "Hoàn thành",
+    TrangThai: "hoàn thành",
   });
   const cancelledTopics = await topicModel.countDocuments({ TrangThai: "hủy" });
   const overdueTopics = await topicModel.countDocuments({

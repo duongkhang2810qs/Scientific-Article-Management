@@ -44,9 +44,12 @@ block content
                         b= topic.NgayKetThuc.toLocaleDateString('vi-VN')
                     td.text-center
                       -if(topic.NgayKetThuc && new Date(topic.NgayKetThuc).getTime() < new Date().getTime())
-                        span.badge.badge-danger Quá hạn
+                        span.badge.badge-danger quá hạn
                       -else
-                        span.badge.badge-warning= topic.TrangThai
+                        -if (topic.TrangThai == "hoàn thành")
+                          span.badge.badge-success hoàn thành
+                        -else
+                          span.badge.badge-warning= topic.TrangThai
                     td.text-center
                       .btn-group
                         button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
@@ -57,10 +60,10 @@ block content
                             i.fa.fa-eye.mr-2
                             | Xem
                           -if(user.role == "admin")
-                            .dropdown-divider
-                            a.dropdown-item.text-warning(type="button", onclick=`editTopic('${topic._id}')`)
-                              i.fa.fa-edit.mr-2
-                              | Chỉnh sửa
+                            //- .dropdown-divider
+                            //- a.dropdown-item.text-warning(type="button", onclick=`editTopic('${topic._id}')`)
+                            //-   i.fa.fa-edit.mr-2
+                            //-   | Chỉnh sửa
                             .dropdown-divider
                             a.dropdown-item.text-danger(type="button", onclick=`deleteTopic('${topic._id}')`)
                               i.fa.fa-trash.mr-2

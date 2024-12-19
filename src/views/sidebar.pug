@@ -24,32 +24,33 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4
                                     p Danh sách đề tài 
                         if user.role == 'sinh_vien'
                             li.nav-item
-                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/new_topic"')
-                                    i.fas.fa-angle-right.nav-icon
-                                    p Thêm đề tài
-                            li.nav-item
                                 a.nav-link.nav-project_list.tree-item(onclick=`window.location.href="/my_topics?ThanhVien=${user._id}"`)
                                     i.fas.fa-angle-right.nav-icon
                                     p Đề tài của tôi
+                            li.nav-item
+                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/new_topic"')
+                                    i.fas.fa-angle-right.nav-icon
+                                    p Thêm đề tài
+                            
                         if user.role == "admin" 
-                                      
+                            li.nav-item
+                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=phân công xét duyệt"')
+                                    i.fas.fa-angle-right.nav-icon
+                                    p Phân công xét duyệt          
                             li.nav-item
                                 a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=phân công duyệt bài báo"')
                                     i.fas.fa-angle-right.nav-icon
                                     p Phân công phản biện
-                            li.nav-item
-                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=phân công xét duyệt"')
-                                    i.fas.fa-angle-right.nav-icon
-                                    p Phân công xét duyệt
+        
                         if user.role == "giang_vien"            
-                            li.nav-item
-                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=đang duyệt bài báo"')
-                                    i.fas.fa-angle-right.nav-icon
-                                    p Phản biện
                             li.nav-item
                                 a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=đang xét duyệt"')
                                     i.fas.fa-angle-right.nav-icon
                                     p Xét duyệt
+                            li.nav-item
+                                a.nav-link.nav-new_project.tree-item(onclick='window.location.href="/topics?TrangThai=đang duyệt bài báo"')
+                                    i.fas.fa-angle-right.nav-icon
+                                    p Phản biện
 
                 if user.role == "admin"
                     li.nav-item
@@ -65,13 +66,13 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4
                                 i.right.fas.fa-angle-left
                         ul.nav.nav-treeview
                             li.nav-item
-                            a.nav-link.nav-new_user.tree-item(onclick='window.location.href="/newuser"')
-                                i.fas.fa-angle-right.nav-icon
-                                p Thêm người dùng
-                            li.nav-item
                             a.nav-link.nav-user_list.tree-item(onclick='window.location.href="/users"')
                                 i.fas.fa-angle-right.nav-icon
                                 p Danh sách người dùng
+                            li.nav-item
+                            a.nav-link.nav-new_user.tree-item(onclick='window.location.href="/newuser"')
+                                i.fas.fa-angle-right.nav-icon
+                                p Thêm người dùng
 
                     li.nav-item
                         a.nav-link.nav-task_list(href='/notify')

@@ -178,7 +178,7 @@ script.
         const score = parseFloat(totalScoreElement.textContent);
         const comment = document.getElementById('comment').value;
 
-        axios.patch(`/api/v1/topics/${id}`, { Diem: score, NhanXet: comment, TrangThai: 'Hoàn thành' })
+        axios.patch(`/api/v1/topics/${id}`, { Diem: score, NhanXet: comment, TrangThai: 'hoàn thành' })
             .then(() => {
                 alert("Cập nhật thành công!");
                 window.location.href = `/topics`;
