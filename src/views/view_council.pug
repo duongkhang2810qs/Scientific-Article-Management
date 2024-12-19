@@ -11,27 +11,27 @@ block content
           .col-md-6.mb-4
             .bg-white.shadow-sm.p-4.rounded
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Tên Hội Đồng
-              p.text-muted= council.TenHoiDong ? council.TenHoiDong : "none"
+              p.text-muted= council.TenHoiDong ? council.TenHoiDong : "Không có"
 
           .col-md-6.mb-4
             .bg-white.shadow-sm.p-4.rounded
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Chủ Tịch
-              p.text-muted= council.ChuTich ? council.ChuTich.name : "none"
+              p.text-muted= council.ChuTich ? `${council.ChuTich.name} (Khoa: ${council.ChuTich.khoa})` : "Không có"
 
           .col-md-6.mb-4
             .bg-white.shadow-sm.p-4.rounded
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Thư Ký
-              p.text-muted= council.Thuky ? council.Thuky.name : "none"
+              p.text-muted= council.Thuky ? `${council.Thuky.name} (Khoa: ${council.Thuky.khoa})` : "Không có"
 
           .col-md-6.mb-4
             .bg-white.shadow-sm.p-4.rounded
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Uỷ Viên 1
-              p.text-muted= council.UyVien1 ? council.UyVien1.name : "none"
+              p.text-muted= council.UyVien1 ? `${council.UyVien1.name} (Khoa: ${council.UyVien1.khoa})` : "Không có"
 
           .col-md-6.mb-4
             .bg-white.shadow-sm.p-4.rounded
               h5.font-weight-bold.text-primary.border-bottom.pb-2.mb-3 Uỷ Viên 2
-              p.text-muted= council.UyVien2 ? council.UyVien2.name : "none"
+              p.text-muted= council.UyVien2 ? `${council.UyVien2.name} (Khoa: ${council.UyVien2.khoa})` : "Không có"
 
       .modal-footer.display.p-0.m-0
         a.btn.btn-secondary.px-4.py-2(href='/councillist')

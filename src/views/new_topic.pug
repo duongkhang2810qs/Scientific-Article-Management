@@ -27,12 +27,12 @@ block content
                                 input#MaNganh.form-control.form-control-sm(type='text', name='manager_id', value='')
                         .col-md-6
                             .form-group
-                                label.control-label Quản lí dự án
+                                label.control-label Quản lý dự án
                                 select#giangvien.form-control.form-control-sm.select2(name='giangvien', value='')
-                                    option(value='') Chọn quản lí            
+                                    option(value='') Chọn quản lý            
                         .col-md-6
                             .form-group
-                                label.control-label Thành viên nhóm dự án
+                                label.control-label Thành viên dự án
                                 select#thanhvien.form-control.form-control-sm.select2.multiple(name='members[]', multiple='', style='width: 100%;')
                         .col-md-6             
                             .form-group
@@ -61,21 +61,31 @@ block content
                 .then(function(response) {
                     // Lấy dữ liệu người dùng từ phản hồi
                     const users = response.data.data;
-                    // Đổ dữ liệu vào thanh chọn
+
+                    // Tìm các dropdown
                     const userDropdown = document.getElementById('thanhvien');
-                    const lecturerDropdown = document.getElementById('giangvien'); // Thêm dòng này
-                    users.forEach(function(user) {
+                    const lecturerDropdown = document.getElementById('giangvien');
+
+                    // Làm sạch các dropdown trước khi thêm mới
+                    userDropdown.innerHTML = `<option value="">Chọn thành viên</option>`;
+                    lecturerDropdown.innerHTML = `<option value="">Chọn quản lý</option>`;
+
+                    // Lọc và thêm giảng viên vào dropdown "Quản lý dự án"
+                    const lecturers = users.filter(user => user.role === 'giang_vien');
+                    lecturers.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.text = `${user.name} id:${user.id}`;
-                        userDropdown.appendChild(option);
+                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
+                        lecturerDropdown.appendChild(option);
+                    });
 
-                        // Thêm dòng sau để thêm vào thanh chọn giảng viên
-                        
-                            const lecturerOption = document.createElement('option');
-                            lecturerOption.value = user._id;
-                            lecturerOption.text = `${user.name} id:${user.id}`;
-                            lecturerDropdown.appendChild(lecturerOption);
+                    // Lọc và thêm sinh viên vào dropdown "Thành viên dự án"
+                    const students = users.filter(user => user.role === 'sinh_vien');
+                    students.forEach(function(user) {
+                        const option = document.createElement('option');
+                        option.value = user._id;
+                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
+                        userDropdown.appendChild(option);
                     });
                 })
                 .catch(function(error) {

@@ -40,7 +40,7 @@ div(id=`council-${council._id}`).modal
         document.addEventListener('DOMContentLoaded', function() {
             axios.get('/api/v1/users')
                 .then(function(response) {
-                    const users = response.data.data || [];
+                    const users = response.data.data;
 
                     // Tìm tất cả dropdown có id chứa "userDropdown-edit"
                     const userDropdowns = document.querySelectorAll('select[id^="userDropdown-edit"]');
@@ -57,7 +57,7 @@ div(id=`council-${council._id}`).modal
                     giangVienList.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = `${user.name} (ID: ${user.id})`;
+                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
                         userDropdowns.forEach(function(dropdown) {
                             dropdown.appendChild(option.cloneNode(true));
                         });

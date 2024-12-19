@@ -44,11 +44,11 @@ block content
                         i.fa.fa-eye.mr-2
                         | Xem
                       .dropdown-divider
-                      button.dropdown-item.text-warning(type="button", onclick=`editUser('${user._id}')`)
+                      a.dropdown-item.text-warning(type="button", onclick=`editUser('${user._id}')`)
                         i.fa.fa-edit.mr-2
                         | Chỉnh sửa
                       .dropdown-divider
-                      button.dropdown-item.text-danger(type="button", onclick=`deleteUser('${user._id}')`)
+                      a.dropdown-item.text-danger(type="button", onclick=`deleteUser('${user._id}')`)
                         i.fa.fa-trash.mr-2
                         | Xóa
               include edituser                

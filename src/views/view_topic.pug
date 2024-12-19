@@ -78,7 +78,7 @@ block content
                                 .dropdown-menu
                                     button.dropdown-item.view_task(href="javascript:void(0)") Chỉnh sửa
                                     .dropdown-divider
-                                    button.dropdown-item.edit_task(href="javascript:void(0)") Xoá
+                                    button.dropdown-item.edit_task(type="button", onclick=`deleteUser('${user._id}')`) Xoá
                                     .dropdown-divider
         .row
             .col-md-4

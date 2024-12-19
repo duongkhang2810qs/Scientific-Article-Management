@@ -39,11 +39,11 @@ block content
                             | Xem
                           -if(user.role == "admin")
                             .dropdown-divider
-                            button.dropdown-item.text-warning(type="button", onclick=`editNotify('${notify._id}')`)
+                            a.dropdown-item.text-warning(type="button", onclick=`editNotify('${notify._id}')`)
                               i.fa.fa-edit.mr-2
                               | Chỉnh sửa
                             .dropdown-divider
-                            button.dropdown-item.text-danger(type="button", onclick=`deleteNotify('${notify._id}')`)
+                            a.dropdown-item.text-danger(type="button", onclick=`deleteNotify('${notify._id}')`)
                               i.fa.fa-trash.mr-2
                               | Xóa
                   include edit_notify
