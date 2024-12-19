@@ -16,7 +16,7 @@ block content
               th.text-center(width="5%") #
               th.text-left(width="45%") Tên hội đồng
               th.text-left(width="35%") Chủ tịch
-              th.text-center(width="15%") Hoạt động
+              th.text-center(width="15%") Hành động
           tbody
             -var count = 1;
             each council in councils
@@ -30,7 +30,7 @@ block content
                   .btn-group
                     button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                       i.fa.fa-cogs.mr-1
-                      | Hoạt động
+                      | Hành động
                     .dropdown-menu.dropdown-menu-right
                       a.dropdown-item.text-primary(href=`/council/${council._id}`)
                         i.fa.fa-eye.mr-2

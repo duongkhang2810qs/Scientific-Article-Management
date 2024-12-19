@@ -16,7 +16,7 @@ block content
               th Tên
               th Email
               th Vai trò
-              th.text-center Hoạt động
+              th.text-center Hành động
           tbody
             -var count = 1;
             each user in users
@@ -38,7 +38,7 @@ block content
                   .btn-group
                     button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                       i.fa.fa-cogs
-                      |  Hoạt động
+                      |  Hành động
                     .dropdown-menu
                       a.dropdown-item.text-primary(href=`/users/${user._id}`)
                         i.fa.fa-eye.mr-2

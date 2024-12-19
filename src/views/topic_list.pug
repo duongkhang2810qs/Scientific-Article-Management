@@ -28,7 +28,7 @@ block content
                   th.text-center Ngày bắt đầu
                   th.text-center Hạn cuối
                   th.text-center Trạng thái
-                  th.text-center Hoạt động
+                  th.text-center Hành động
               tbody
                 - var count = 1;
                 each topic in data
@@ -54,7 +54,7 @@ block content
                       .btn-group
                         button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                           i.fa.fa-cogs.mr-1
-                          | Hoạt động
+                          | Hành động
                         .dropdown-menu.dropdown-menu-right
                           a.dropdown-item.text-primary(href=`/topic/${topic._id}`)
                             i.fa.fa-eye.mr-2

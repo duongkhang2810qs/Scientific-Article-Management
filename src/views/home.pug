@@ -19,7 +19,7 @@ block content
                 tr.bg-primary.text-white
                   th.text-center Thông báo
                   th.text-center Ngày đăng
-                  th.text-center Hoạt động              
+                  th.text-center Hành động              
               tbody
                 each notify in data
                   tr
@@ -32,7 +32,7 @@ block content
                       .btn-group
                         button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
                           i.fa.fa-cogs.mr-1
-                          | Hoạt động
+                          | Hành động
                         .dropdown-menu
                           a.dropdown-item.text-primary(href=`/notify/${notify._id}`)
                             i.fa.fa-eye.mr-2
