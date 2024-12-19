@@ -71,21 +71,21 @@ block content
                         .col-lg-12.text-right.justify-content-center.d-flex
                             button.btn.btn-primary.mr-2(type="button", id='showFile') Xem báo cáo
                             if user.role =="giang_vien" & data.TrangThai=="đang duyệt bài báo"
-                                button.btn.btn-primary.mr-2(type="button", id="showFormButton") duyệt bài báo
-                            td.text-center
-                                button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true").
-                                    Hoạt động
-                                .dropdown-menu
-                                    button.dropdown-item.view_task(href="javascript:void(0)") Chỉnh sửa
-                                    .dropdown-divider
-                                    button.dropdown-item.edit_task(href="javascript:void(0)") Xoá
-                                    .dropdown-divider
+                                button.btn.btn-primary.mr-2(type="button", id="showFormButton") Duyệt bài báo
+                            //- td.text-center
+                            //-     button.btn.btn-default.btn-sm.btn-flat.border-info.wave-effect.text-info.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true").
+                            //-         Hoạt động
+                            //-     .dropdown-menu
+                            //-         button.dropdown-item.view_task(href="javascript:void(0)") Chỉnh sửa
+                            //-         .dropdown-divider
+                            //-         button.dropdown-item.edit_task(href="javascript:void(0)") Xoá
+                            //-         .dropdown-divider
         .row
             .col-md-4
                 .card.card-outline(style="min-height:129.67px").card-primary
                     .card-header
                         dt
-                            b.border-bottom.border-primary Quản lí dự án                                    
+                            b.border-bottom.border-primary Quản lý dự án                                    
                         dd 
                             .d-flex.align-items-center.mt-1                                        
                                 img.img-circle.img-thumbnail.p-0.shadow-sm.border-info.img-sm.mr-3(src=`/img/users/${data.GiangVien.avatar}`, alt="Avatar")

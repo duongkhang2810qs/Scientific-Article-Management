@@ -56,12 +56,11 @@ block content
                           a.dropdown-item.text-primary(href=`/topic/${topic._id}`)
                             i.fa.fa-eye.mr-2
                             | Xem
-                          -if(topic.TrangThai == "phân công xét duyệt")
+                          -if(user.role == "admin")
                             .dropdown-divider
                             a.dropdown-item.text-warning(type="button", onclick=`editTopic('${topic._id}')`)
                               i.fa.fa-edit.mr-2
                               | Chỉnh sửa
-                            //- include editTopic
                             .dropdown-divider
                             a.dropdown-item.text-danger(type="button", onclick=`deleteTopic('${topic._id}')`)
                               i.fa.fa-trash.mr-2
