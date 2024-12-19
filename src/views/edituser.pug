@@ -12,12 +12,12 @@ div(id=`editUser-${user._id}`).modal
                 input(name="editSdt" class="form-control"  id=`editSdt-${user._id}`  )    
                 label Giới tính
                 select(name="editGioiTinh", class="form-control", id=`editGioiTinh-${user._id}`)
-                    option(value="") -- Chọn giới tính --
+                    option(value="" disabled selected) -- Chọn giới tính --
                     option(value="Nam") Nam
                     option(value="Nữ") Nữ
                 label Khoa
                 select(name="editKhoa" class="form-control"  id=`editKhoa-${user._id}` )
-                    option(value="") -- Chọn khoa --
+                    option(value="" disabled selected) -- Chọn khoa --
                     option(value="Công nghệ Nhiệt - Điện lạnh") Công nghệ Nhiệt - Điện lạnh
                     option(value="Công nghệ Thông tin") Công nghệ Thông tin
                     option(value="Cơ khí") Cơ khí

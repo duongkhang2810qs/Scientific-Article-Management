@@ -15,7 +15,12 @@ block content
             style="width: 150px; height: 150px; object-fit: cover"
           )
           h4.mt-3.font-weight-bold.text-dark= data.name
-          p.text-muted.text-uppercase Vai trò: #{data.role}
+          if data.role == "admin"
+            p.text-muted.text-uppercase Vai trò: Admin
+          if data.role == "giang_vien"
+            p.text-muted.text-uppercase Vai trò: Giảng Viên
+          if data.role == "sinh_vien"
+            p.text-muted.text-uppercase Vai trò: Sinh Viên
 
         hr.my-4
 
