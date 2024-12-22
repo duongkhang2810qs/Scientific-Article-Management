@@ -1,35 +1,3 @@
-//- 
-//- **Mục đích của đoạn mã này**:
-//- 
-//- ### 1. **Thanh điều hướng chính (Sidebar)**:
-//- - Hiển thị danh sách các mục chức năng trong ứng dụng quản lý đề tài khoa học.
-//- - Các mục được sắp xếp và nhóm theo vai trò của người dùng (`sinh_vien`, `admin`, `giang_vien`).
-//- 
-//- ### 2. **Tính năng động dựa trên vai trò người dùng**:
-//- - Người dùng chỉ nhìn thấy các tùy chọn phù hợp với vai trò của mình.
-//- - Ví dụ:
-//-   - **Sinh viên**: Thêm đề tài, xem đề tài của tôi.
-//-   - **Admin**: Quản lý hội đồng, người dùng, và phân công xét duyệt/duyệt bài báo.
-//-   - **Giảng viên**: Xét duyệt và phản biện đề tài.
-//- 
-//- ### 3. **Các chức năng chính được hỗ trợ**:
-//- - **Trang chủ**: Đưa người dùng về màn hình chính.
-//- - **Đề tài**: Quản lý danh sách đề tài, thêm mới, và các trạng thái khác.
-//- - **Hội đồng** (dành riêng cho admin): Quản lý hội đồng.
-//- - **Người dùng**: Quản lý và thêm người dùng mới (admin).
-//- - **Thông báo**: Quản lý thông báo chung.
-//- - **Xếp hạng**: Hiển thị bảng xếp hạng dựa trên điểm số.
-//- - **Trò chuyện**: Hỗ trợ giao tiếp giữa các người dùng.
-//- - **Cuộc họp**: Truy cập và tạo các cuộc họp trực tuyến.
-//- 
-//- ### 4. **Thẩm mỹ và trải nghiệm người dùng**:
-//- - Sử dụng biểu tượng Font Awesome để tăng tính trực quan.
-//- - Các mục được nhóm gọn gàng với `dropdown` giúp tiết kiệm không gian.
-//- 
-//- ### 5. **Kết quả mong đợi**:
-//- - Người dùng dễ dàng tìm và truy cập các chức năng quan trọng của hệ thống.
-//- - Giao diện trực quan, dễ sử dụng, và thích ứng tốt với nhiều vai trò khác nhau.
-
 aside.main-sidebar.sidebar-dark-primary.elevation-4
     .dropdown
         a.brand-link(href='/')
