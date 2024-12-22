@@ -1,32 +1,3 @@
-//- 
-//- File này tạo giao diện cho việc quản lý và tạo các cuộc trò chuyện (chat) trong ứng dụng.
-//- Gồm các thành phần chính:
-//- 
-//- 1. `div#createChat`: 
-//-    - Modal hiển thị khi người dùng muốn tạo cuộc trò chuyện mới.
-//-    - Bao gồm:
-//-        a. Giao diện tạo chat cá nhân:
-//-            - `select#nguoi-dung`: Dropdown chọn người dùng từ danh sách.
-//-            - Nút "Tạo nhóm" để chuyển sang giao diện tạo nhóm.
-//-            - Nút "Lưu" để lưu cuộc trò chuyện mới.
-//-        b. Giao diện tạo nhóm chat:
-//-            - `input#ten-nhom`: Trường nhập tên nhóm.
-//-            - `select#thanhvien`: Dropdown chọn thành viên nhóm (hỗ trợ chọn nhiều).
-//-            - Nút "Lưu" để lưu nhóm chat mới.
-//-            - Nút "Hủy" để đóng modal.
-//- 
-//- 2. Script:
-//-    - Tải danh sách người dùng từ API `/api/v1/users`:
-//-        + Dữ liệu được thêm vào dropdown `nguoi-dung` và `thanhvien`.
-//-        + Axios được sử dụng để thực hiện yêu cầu API.
-//-    - Các hàm hỗ trợ:
-//-        + `saveCreateChat()`: Lưu cuộc trò chuyện cá nhân.
-//-        + `saveGroupChat()`: Lưu nhóm trò chuyện.
-//-        + `closeCreateChat()`: Đóng modal.
-//-
-//- Mục đích: Hỗ trợ người dùng trong việc tạo mới các cuộc trò chuyện cá nhân hoặc nhóm một cách dễ dàng và trực quan.
-//-
-
 div(id=`createChat`).modal
     div.modal-dialog
         div.modal-content
