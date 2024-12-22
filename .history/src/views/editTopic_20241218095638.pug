@@ -1,0 +1,19 @@
+div(id=`editTopic-${topic._id}`).modal
+    div.modal-dialog
+        div.modal-content
+            span.close(onclick="closeEditTopic()") &times;
+            h2 Chỉnh sửa
+            form(class=`edit-form-${topic._id}`)
+                label Tên đề tài
+                input(type="text" name="editName" class="form-control" id=`editName-${topic._id}`  required)
+                label Email
+                input(name="editEmail" class="form-control"  id=`editEmail-${topic._id}`  required)        
+                label Số điện thoại
+                input(name="editSdt" class="form-control"  id=`editSdt-${topic._id}`  required)    
+                label Giới tính
+                input(type="text" name="editGioiTinh" class="form-control"  id=`editGioiTinh-${topic._id}` required)
+                label Khoa
+                input(name="editKhoa" class="form-control"  id=`editKhoa-${topic._id}` required)   
+                .col-lg-12.text-right.justify-content-center.d-flex
+                    button.btn.btn-primary(type="button" onclick=`saveEditTopic('${topic._id}')`) Lưu
+                    button.btn.btn-secondary(type="button" onclick=`closeEditTopic('${topic._id}')`) Hủy

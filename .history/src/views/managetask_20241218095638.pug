@@ -1,30 +1,3 @@
-//- 
-//- **Mục đích của file này**:
-//- 
-//- 1. **Quản lý nhiệm vụ (Task Management)**:
-//-    - Giao diện nhập liệu để quản lý thông tin chi tiết của nhiệm vụ trong một dự án.
-//-    - Bao gồm các trường thông tin như tên nhiệm vụ, mô tả, trạng thái và file đính kèm.
-//- 
-//- 2. **Soạn thảo mô tả nhiệm vụ**:
-//-    - Sử dụng thư viện `Summernote` để hỗ trợ soạn thảo văn bản rich-text cho phần mô tả nhiệm vụ.
-//- 
-//- 3. **Tải lên file đính kèm**:
-//-    - Hỗ trợ người dùng tải lên một file đính kèm, ví dụ: tài liệu liên quan đến nhiệm vụ.
-//-    - File được hiển thị trước khi tải lên thông qua sự kiện `onchange`.
-//- 
-//- 4. **Cập nhật trạng thái nhiệm vụ**:
-//-    - Trạng thái nhiệm vụ có thể được chọn từ các lựa chọn: "Chưa giải quyết", "Đang tiến hành", hoặc "Hoàn thành".
-//- 
-//- 5. **Xử lý dữ liệu qua AJAX**:
-//-    - Form gửi dữ liệu thông qua AJAX tới server mà không tải lại trang.
-//-    - Nếu lưu dữ liệu thành công, người dùng sẽ nhận thông báo "Data successfully saved" và trang sẽ tự động tải lại sau 1.5 giây.
-//- 
-//- 6. **Điều hướng linh hoạt**:
-//-    - Nút "Cancel" giúp người dùng quay lại danh sách người dùng mà không lưu dữ liệu.
-//- 
-//- **Kết quả mong đợi**:
-//- - Giao diện đơn giản, hỗ trợ người dùng quản lý nhiệm vụ hiệu quả.
-//- - Tích hợp xử lý file đính kèm, trạng thái và mô tả nhiệm vụ mượt mà.
 extends index
 
 block content

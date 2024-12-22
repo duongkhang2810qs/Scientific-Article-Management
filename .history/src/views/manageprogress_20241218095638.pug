@@ -1,25 +1,3 @@
-//- 
-//- **Mục đích của file này**:
-//- 
-//- 1. **Quản lý tiến độ công việc**:
-//-    - Tạo giao diện nhập liệu để quản lý tiến độ một công việc cụ thể.
-//-    - Bao gồm các trường thông tin như chủ đề, ngày, thời gian bắt đầu/kết thúc, và mô tả tiến độ.
-//- 
-//- 2. **Tích hợp editor và form động**:
-//-    - Sử dụng thư viện `Summernote` để hỗ trợ soạn thảo văn bản rich-text cho phần mô tả.
-//-    - Tích hợp thư viện `Select2` để cải thiện giao diện chọn dữ liệu nếu cần (có sẵn chuẩn bị).
-//- 
-//- 3. **Xử lý dữ liệu qua AJAX**:
-//-    - Khi người dùng nhấn nút "Lưu", form sẽ gửi dữ liệu qua AJAX tới server mà không tải lại trang.
-//-    - Dữ liệu sẽ được lưu vào cơ sở dữ liệu nếu hợp lệ, và thông báo "Data successfully saved" sẽ hiển thị.
-//- 
-//- 4. **Điều hướng linh hoạt**:
-//-    - Nút "Cancel" cho phép người dùng quay lại danh sách người dùng (`user_list`) mà không lưu dữ liệu.
-//- 
-//- **Kết quả mong đợi**:
-//- - Giao diện nhập liệu đơn giản và hiệu quả.
-//- - Người dùng có thể quản lý tiến độ công việc nhanh chóng với phản hồi thời gian thực từ server.
-
 extends index
 
 block content
