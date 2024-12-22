@@ -6,7 +6,7 @@ const notifyRouter = require("./routes/notify.router.js");
 const councilRouter = require("./routes/council.router.js");
 const conversationRouter = require("./routes/conversation.router.js");
 const messageRouter = require("./routes/message.router.js");
-const crawlImmediately = require("./routes/crawl.router.js"); // Import hàm crawl
+const { crawlImmediately, router: crawlRouter } = require("./routes/crawl.router.js"); // Import hàm crawl và router
 
 const cors = require("cors");
 const viewRouter = require("./routes/view.router.js");
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/v1/crawl", crawlImmediately); // Thêm route cho crawl
+app.use("/api/v1/crawl", crawlRouter);
 crawlImmediately();
 
 // doc swagger
