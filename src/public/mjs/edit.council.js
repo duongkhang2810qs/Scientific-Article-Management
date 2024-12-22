@@ -1,3 +1,4 @@
+// Hàm chỉnh sửa hội đồng
 function edit_council(councilId) {
   // Gửi yêu cầu GET để lấy dữ liệu thông báo hiện tại
   axios
@@ -12,6 +13,7 @@ function edit_council(councilId) {
     });
 }
 
+// Hàm hiển thị modal chỉnh sửa và điền dữ liệu vào biểu mẫu
 function showEditForm(councilData) {
   const TenHoiDong = document.getElementById(`editName-${councilData._id}`);
   const ChuTich = document.getElementById(
@@ -27,6 +29,7 @@ function showEditForm(councilData) {
     `userDropdown-editUyVien2-${councilData._id}`
   );
 
+  // Kiểm tra và xử lý giá trị null hoặc undefined cho các ủy viên
   if (!councilData.UyVien2) {
     councilData.UyVien2 = "";
   }
@@ -34,11 +37,14 @@ function showEditForm(councilData) {
     councilData.UyVien1 = "";
   }
 
+  // Gán giá trị của hội đồng vào các trường biểu mẫu
   TenHoiDong.value = councilData.TenHoiDong;
   ChuTich.value = councilData.ChuTich;
   ThuKy.value = councilData.ThuKy;
   UyVien1.value = councilData.UyVien1;
   UyVien2.value = councilData.UyVien2;
+
+  // Hiển thị modal chỉnh sửa
   const editNotify = document.getElementById(`council-${councilData._id}`);
   editNotify.style.display = "block";
 }
@@ -47,7 +53,7 @@ function showEditForm(councilData) {
 function closeEditCouncil(councilId) {
   const editNotify = document.getElementById(`council-${councilId}`);
   editNotify.style.display = "none";
-  location.reload();
+  location.reload(); // Tải lại trang sau khi đóng modal
 }
 
 // Hàm lưu thông báo chỉnh sửa
@@ -63,6 +69,8 @@ function saveEditCouncil(councilId) {
   const UyVien2 = document.getElementById(
     `userDropdown-editUyVien2-${councilId}`
   );
+
+  // Tạo object chứa dữ liệu chỉnh sửa
   const editedData = {
     TenHoiDong: TenHoiDong.value,
     ChuTich: ChuTich.value,
@@ -75,7 +83,7 @@ function saveEditCouncil(councilId) {
   axios
     .patch(`/api/v1/councils/${councilId}`, editedData)
     .then((response) => {
-      closeEditCouncil(councilId);
+      closeEditCouncil(councilId); // Đóng modal chỉnh sửa sau khi cập nhật thành công
     })
     .catch((error) => {
       console.error("Error updating council:", error);

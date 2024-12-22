@@ -1,0 +1,160 @@
+extends index 
+
+block content
+
+  .container-fluid.mt-4
+    .card.shadow-lg.border-0.rounded-lg
+      .card-header.bg-gradient-primary.text-white.text-center.py-4
+        h3.font-weight-bold.text-uppercase Thông Tin Người Dùng
+
+      .card-body.p-4.bg-light
+        .text-center
+          img.img-thumbnail.rounded-circle.shadow-lg(
+            src=`/img/users/${data.avatar}`, 
+            alt="User Avatar",
+            style="width: 150px; height: 150px; object-fit: cover"
+          )
+          h4.mt-3.font-weight-bold.text-dark= data.name
+          if data.role == "admin"
+            p.text-muted.text-uppercase Vai trò: Admin
+          if data.role == "giang_vien"
+            p.text-muted.text-uppercase Vai trò: Giảng Viên
+          if data.role == "sinh_vien"
+            p.text-muted.text-uppercase Vai trò: Sinh Viên
+
+        hr.my-4
+
+        .row
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-user.text-primary.mr-2
+              span.font-weight-bold Tài khoản: 
+              span.text-muted= data.id
+
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-key.text-warning.mr-2
+              span.font-weight-bold Mật khẩu: 
+              span.text-muted= data.password
+
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-envelope.text-secondary.mr-2
+              span.font-weight-bold Email: 
+              span.text-muted= data.email
+
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-phone.text-success.mr-2
+              span.font-weight-bold Số Điện Thoại: 
+              span.text-muted= data.sdt
+          
+          //- .col-md-6.mb-4
+          //-   .bg-white.p-3.shadow-sm.rounded
+          //-     i.fa.fa-user.text-warning.mr-2
+          //-     span.font-weight-bold Giới Tính: 
+          //-     if data.gioitinh
+          //-       span.text-muted Nam
+          //-     else
+          //-       span.text-muted Nữ
+                
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-venus-mars.text-info.mr-2
+              span.font-weight-bold Giới Tính: 
+              span.text-muted= data.gioitinh
+          
+          .col-md-6.mb-4
+            .bg-white.p-3.shadow-sm.rounded
+              i.fa.fa-graduation-cap.text-dark.mr-2
+              span.font-weight-bold Khoa: 
+              span.text-muted= data.khoa
+
+          if data.role == "sinh_vien" && data.DeTai.length > 0
+            .col-md-6.mb-4
+              .bg-white.p-3.shadow-sm.rounded
+                i.fa.fa-tasks.text-info.mr-2
+                span.font-weight-bold Tổng Đề Tài: 
+                span.text-muted #{data.DeTai.length} đề tài
+          else
+            if data.role == "sinh_vien"
+              .col-md-6.mb-4
+                .bg-white.p-3.shadow-sm.rounded
+                  i.fa.fa-tasks.text-danger.mr-2
+                  span.font-weight-bold Tổng Đề Tài: 
+                  span.text-muted Không có dữ liệu
+
+        .text-center.mt-4
+          if me
+            button.btn.btn-primary.mr-3.px-4.py-2(type="button", onclick=`editUser('${user._id}')`)
+              i.fa.fa-edit.mr-2
+              | Chỉnh sửa
+          a.btn.btn-secondary.px-4.py-2(href='./')
+            i.fa.fa-times.mr-2
+            | Đóng
+        include edituser
+    .modal-footer.display.p-0.m-0
+      if me
+        include edituser   
+
+  style.
+    .bg-gradient-primary {
+      background: linear-gradient(to right, #4e73df, #224abe);
+    }
+
+    .rounded-lg {
+      border-radius: 15px;
+    }
+
+    .shadow-lg {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .rounded-circle {
+      border: 5px solid #f8f9fc;
+    }
+
+    hr {
+      border-top: 2px solid #ddd;
+    }
+
+    .p-3 {
+      font-size: 1rem;
+    }
+
+    .p-3 i {
+      font-size: 1.2rem;
+    }
+
+    .btn-primary, .btn-secondary {
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #3751ff;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    h4 {
+      color: #343a40;
+      text-transform: capitalize;
+    }
+
+    .card-header h3 {
+      margin: 0;
+    }
+
+    .modal-footer.display.p-0.m-0 {
+      display: none;
+    }
+
+    .modal-footer.display {
+      display: flex;
+    }

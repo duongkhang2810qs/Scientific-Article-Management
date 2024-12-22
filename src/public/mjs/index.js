@@ -10,20 +10,21 @@ import { fixuser } from "./fixuser.js";
 import { forgotPass } from "./forgotPass.js";
 import { resetPass } from "./resetPass.js";
 // DOM ELEMENTS
-const loginForm = document.querySelector(".form--login");
-const logOutBtn = document.querySelector(".logout");
-const forgot = document.querySelector(".form--forgot");
-const reset = document.querySelector(".form--reset");
+const loginForm = document.querySelector(".form--login"); // Form đăng nhập
+const logOutBtn = document.querySelector(".logout"); // Nút đăng xuất
+const forgot = document.querySelector(".form--forgot"); // Form quên mật khẩu
+const reset = document.querySelector(".form--reset"); // Form đặt lại mật khẩu
 
 // const userDataForm = document.querySelector(".form-user-data");
 // const userPasswordForm = document.querySelector(".form-user-password");
-const userfrom = document.querySelector(".new-user");
-const projectform = document.querySelector(".newtopic");
-const changepass = document.querySelector(".change_pass");
-const new_notifyform = document.querySelector(".notify");
-const delete_notify = document.querySelector(".delete_notify");
-const get_conversation = document.querySelector("#get_conversation");
+const userfrom = document.querySelector(".new-user"); // Form tạo người dùng mới
+const projectform = document.querySelector(".newtopic"); // Form tạo đề tài mới
+const changepass = document.querySelector(".change_pass"); // Form đổi mật khẩu
+const new_notifyform = document.querySelector(".notify"); // Form thông báo mới
+const delete_notify = document.querySelector(".delete_notify"); // Form xóa thông báo
+const get_conversation = document.querySelector("#get_conversation"); // Lấy danh sách hội thoại
 
+// Xử lý khi gửi form thông báo mới
 if (delete_notify) {
   new_notifyform.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -32,6 +33,8 @@ if (delete_notify) {
     new_notify(ThongBao, NoiDung);
   });
 }
+
+// Xử lý khi gửi form thông báo mới
 if (new_notifyform) {
   new_notifyform.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -40,6 +43,8 @@ if (new_notifyform) {
     new_notify(ThongBao, NoiDung);
   });
 }
+
+// Xử lý khi gửi form tạo người dùng mới
 if (userfrom) {
   userfrom.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -50,6 +55,8 @@ if (userfrom) {
     newuser(id, password, name, role);
   });
 }
+
+// Xử lý khi gửi form đổi mật khẩu
 if (changepass) {
   changepass.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -58,6 +65,8 @@ if (changepass) {
     changePass(password, newPassword);
   });
 }
+
+// Xử lý khi gửi form chỉnh sửa người dùng
 if (fixuser) {
   fixuser.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -69,6 +78,8 @@ if (fixuser) {
     changePass(name, email, gioitinh, sdt, khoa);
   });
 }
+
+// Xử lý khi gửi form tạo đề tài mới
 if (projectform) {
   projectform.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -102,6 +113,7 @@ if (projectform) {
   });
 }
 
+// Xử lý khi gửi form đăng nhập
 if (loginForm)
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -110,8 +122,10 @@ if (loginForm)
     login(id, password);
   });
 
+// Xử lý khi nhấn nút đăng xuất
 if (logOutBtn) logOutBtn.addEventListener("click", logout);
 
+// Xử lý khi gửi form quên mật khẩu
 if (forgot) {
   forgot.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -119,6 +133,8 @@ if (forgot) {
     forgotPass(id);
   });
 }
+
+// Xử lý khi gửi form đặt lại mật khẩu
 if (reset) {
   reset.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -126,5 +142,7 @@ if (reset) {
     resetPass(password);
   });
 }
+
+// Hiển thị thông báo nếu có
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) showAlert("success", alertMessage, 20);

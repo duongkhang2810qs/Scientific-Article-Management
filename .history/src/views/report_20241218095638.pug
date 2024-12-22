@@ -1,0 +1,70 @@
+extends index
+
+block content
+    .col-md-12
+        .card.card-outline.card-success
+            .card-header
+                b Project Progress
+                .card-tools
+                    button.btn.btn-flat.btn-sm.bg-gradient-success.btn-success#print
+                        i.fa.fa-print
+                        |  Print
+            .card-body.p-0
+                .table-responsive#printable
+                    table.table.m-0.table-bordered
+                        colgroup
+                            col(width="5%")
+                            col(width="30%")
+                            col(width="35%")
+                            col(width="15%")
+                            col(width="15%")
+                        thead
+                            tr
+                                th #
+                                th Project
+                                th Nhiệm vụ
+                                th Nhiệm vụ đã hoàn thành
+                                th Thời gian làm việc
+                                th Tiến triển
+                                th TRạng thái
+                        tbody
+                            tr
+                                td
+                                    | 
+                                td
+                                    a(href="#").
+                                        | 
+                                        br
+                                        small
+                                            | Due: 
+                                            // Render dynamic content or variables here
+                                td.text-center
+                                    // Render dynamic content or variables here
+                                td.text-center
+                                    // Render dynamic content or variables here
+                                td.text-center
+                                    // Render dynamic content or variables here
+                                td.project_progress
+                                    .progress.progress-sm
+                                        .progress-bar.bg-green(role="progressbar", aria-valuenow="57", aria-valuemin="0", aria-valuemax="100", style="width: <? ?>%")
+                                            small
+                                                | % Complete
+                                td.project-state
+                                    // Render dynamic content or variables here
+            script.
+                $('#print').click(function(){
+                    start_load();
+                    var _h = $('head').clone();
+                    var _p = $('#printable').clone();
+                    var _d = "<p class='text-center'><b>Project Progress Report as of (<?php echo date('Y-m-d'); ?>)</b></p>";
+                    _p.prepend(_d);
+                    _p.prepend(_h);
+                    var nw = window.open("","","width=900,height=600");
+                    nw.document.write(_p.html());
+                    nw.document.close();
+                    nw.print();
+                    setTimeout(function(){
+                        nw.close();
+                        end_load();
+                    }, 750);
+                });

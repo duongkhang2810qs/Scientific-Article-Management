@@ -1,0 +1,62 @@
+extends index
+
+block content
+  main.chat-page
+    .messages-panel.narrowed
+      .header
+        .content1
+          .frame-4
+            .frame-8
+              .messages Messages
+              svg.iconsax(width="16", height="17", viewBox="0 0 16 17", fill="none", xmlns="http://www.w3.org/2000/svg")
+                path(d="M13.28 6.46667L8.9333 10.8133C8.41997 11.3267 7.57997 11.3267 7.06664 10.8133L2.71997 6.46667" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round")
+            .frame-3
+              ._12 12
+          svg.iconsax2(width="40", height="41", viewBox="0 0 40 41", fill="none", xmlns="http://www.w3.org/2000/svg")
+            path(d="M20 3.83331C10.8166 3.83331 3.33331 11.3166 3.33331 20.5C3.33331 29.6833 10.8166 37.1666 20 37.1666C29.1833 37.1666 36.6666 29.6833 36.6666 20.5C36.6666 11.3166 29.1833 3.83331 20 3.83331ZM26.6666 21.75H21.25V27.1666C21.25 27.85 20.6833 28.4166 20 28.4166C19.3166 28.4166 18.75 27.85 18.75 27.1666V21.75H13.3333C12.65 21.75 12.0833 21.1833 12.0833 20.5C12.0833 19.8166 12.65 19.25 13.3333 19.25H18.75V13.8333C18.75 13.15 19.3166 12.5833 20 12.5833C20.6833 12.5833 21.25 13.15 21.25 13.8333V19.25H26.6666C27.35 19.25 27.9166 19.8166 27.9166 20.5C27.9166 21.1833 27.35 21.75 26.6666 21.75Z" fill="#615EF0")
+        .divider
+      .global-list
+        .frame-7
+          .frame-6
+            .search search
+            .search-messages Search messages
+        .message-list
+          .message-component
+            img.frame-10(src="frame-100.png")
+            button.frame-11
+              .frame-15
+                .frame-13
+                  .full-name-here Elmer Laverty
+                  ._12-m 12m
+                .enter-your-message-here Haha oh man 🔥
+              .frame-14
+                .label
+                  .title Question
+                .label2
+                  .title2 Help wanted
+          .message-component2
+            img.frame-10(src="frame-101.png")
+            .frame-11
+              .frame-15
+                .frame-13
+                  .full-name-here Florencio Dorrance
+                  ._12-m 24m
+                .enter-your-message-here woohoooo
+              .frame-14
+                .label3
+                  .title3 Some content
+          .message-component
+            img.frame-10(src="frame-102.png")
+            .frame-11
+              .frame-15
+                .frame-13
+                  .full-name-here Lavern Laboy
+                  ._12-m 1h
+                .enter-your-message-here Haha that's terrifying 😂
+              .frame-14
+                .label
+                  .title Bug
+                .label2
+                  .title2 Hacktoberfest
+    include MessageBox
+  

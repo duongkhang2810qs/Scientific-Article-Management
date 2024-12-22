@@ -1,4 +1,4 @@
-# Scientific Article Management Software
+# Scientific Article Management
 
 ## Usage
 

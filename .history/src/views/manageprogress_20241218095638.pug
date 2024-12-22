@@ -1,0 +1,73 @@
+extends index
+
+block content
+    .container-fluid
+        form#manage-progress(action='ajax.php?action=save_progress', method='POST')
+            input(type='hidden', name='id', value='')
+            input(type='hidden', name='project_id', value='')
+            .col-lg-12
+                .row
+                    .col-md-5
+                        input(type='hidden', name='task_id', value='')
+                        .form-group
+                            label(for='subject') Subject
+                            input.form-control.form-control-sm(type='text', name='subject', value='', required)
+                        .form-group
+                            label(for='date') Date
+                            input.form-control.form-control-sm(type='date', name='date', value='', required)
+                        .form-group
+                            label(for='start_time') Start Time
+                            input.form-control.form-control-sm(type='time', name='start_time', value='', required)
+                        .form-group
+                            label(for='end_time') End Time
+                            input.form-control.form-control-sm(type='time', name='end_time', value='', required)
+                    .col-md-7
+                        .form-group
+                            label(for='comment') Bình luận/Mô tả tiến độ
+                            textarea.summernote.form-control(name='comment', cols='30', rows='10', required)
+            hr
+            .col-lg-12.text-right.justify-content-center.d-flex
+                button.btn.btn-primary.mr-2(type="submit") Lưu
+                button.btn.btn-secondary(type="button" onclick="location.href = 'index.php?page=user_list'") Cancel                               
+    script.
+        $(document).ready(function(){
+            $('.summernote').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ol', 'ul', 'paragraph', 'height']],
+                    ['table', ['table']],
+                    ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            $('.select2').select2({
+                placeholder: 'Please select here',
+                width: '100%'
+            });
+
+            $('#manage-progress').submit(function(e){
+                e.preventDefault();
+                start_load();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    data: new FormData($(this)[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    success: function(resp){
+                        if(resp == 1){
+                            alert_toast('Data successfully saved', 'success');
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1500);
+                        }
+                    }
+                });
+            });
+        });

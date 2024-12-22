@@ -1,0 +1,132 @@
+extends index
+
+block content
+  div.container-rating.shadow-lg.border-0.p-4.rounded
+    h2.text-center.text-primary.font-weight-bold.mb-4 Thống Kê
+
+    hr(style="border:3px solid #f1f1f1")
+
+    .row.align-items-center
+      .col-md-3.text-secondary.font-weight-bold Tổng số đề tài
+      .col-md-7
+        .progress
+          .progress-bar.bg-primary(role="progressbar", style=`width: 100%;`, aria-valuenow="100", aria-valuemin="0", aria-valuemax="100")= totalTopics
+      .col-md-2.text-right.text-muted 100%
+
+    .row.align-items-center.mt-3
+      .col-md-3.text-secondary.font-weight-bold Tỉ lệ hoàn thành
+      .col-md-7
+        .progress
+          .progress-bar.bg-success(role="progressbar", style=`width: ${completedPercentage}%;`, aria-valuenow=completedPercentage, aria-valuemin="0", aria-valuemax="100")= completedTopics
+      .col-md-2.text-right.text-muted= completedPercentage + '%'
+
+    .row.align-items-center.mt-3
+      .col-md-3.text-secondary.font-weight-bold Tỉ lệ bị hủy
+      .col-md-7
+        .progress
+          .progress-bar.bg-info(role="progressbar", style=`width: ${cancelledPercentage}%;`, aria-valuenow=cancelledPercentage, aria-valuemin="0", aria-valuemax="100")= cancelledTopics
+      .col-md-2.text-right.text-muted= cancelledPercentage + '%'
+
+    .row.align-items-center.mt-3
+      .col-md-3.text-secondary.font-weight-bold Tỉ lệ quá hạn
+      .col-md-7
+        .progress
+          .progress-bar.bg-danger(role="progressbar", style=`width: ${overduePercentage}%;`, aria-valuenow=overduePercentage, aria-valuemin="0", aria-valuemax="100")= overdueTopics
+      .col-md-2.text-right.text-muted= overduePercentage + '%'
+
+    .row.align-items-center.mt-3
+      .col-md-3.text-secondary.font-weight-bold Đang thực hiện
+      .col-md-7
+        .progress
+          .progress-bar.bg-warning(role="progressbar", style=`width: ${ongoingPercentage}%;`, aria-valuenow=ongoingPercentage, aria-valuemin="0", aria-valuemax="100")= ongoingTopics
+      .col-md-2.text-right.text-muted= ongoingPercentage + '%'
+
+  div.container-rating.mt-5.shadow-lg.border-0.p-4.rounded
+    h2.text-center.text-primary.font-weight-bold.mb-4 Xếp Hạng Đề Tài 
+
+    hr(style="border:3px solid #f1f1f1")
+
+    table.table.table-hover.table-striped.table-bordered.mt-3
+      thead.bg-primary.text-white
+        tr
+          th.text-center TOP
+          th Tên đề tài
+          th.text-center Điểm
+      tbody
+        each topic, index in topTopics.filter(t => t.TrangThai === 'hoàn thành')
+          - let rowClass = ''
+          - if (index === 0) rowClass = 'top1'
+          - else if (index === 1) rowClass = 'top2'
+          - else if (index === 2) rowClass = 'top3'
+          tr(class=rowClass)
+            td.text-center= index + 1
+            td= topic.TenDeTai
+            td.text-center= topic.Diem
+
+  style.
+    .container-rating {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .progress {
+      height: 25px;
+      border-radius: 12px;
+    }
+
+    .progress-bar {
+      line-height: 25px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .table {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .table th {
+      text-align: center;
+      background-color: #007bff;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .table td {
+      font-size: 15px;
+    }
+
+    .top1 {
+      background-color: #f56342 !important;
+      color: white;
+    }
+
+    .top2 {
+      background-color: #f0dd65 !important;
+      color: white;
+    }
+
+    .top3 {
+      background-color: #71f065 !important;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .row .col-md-3,
+      .row .col-md-7,
+      .row .col-md-2 {
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+      }
+    }

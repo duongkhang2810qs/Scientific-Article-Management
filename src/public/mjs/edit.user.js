@@ -55,18 +55,18 @@ function saveEditFormUser(userId) {
   formData.append("gioitinh", editGioiTinh.value);
   formData.append("khoa", editKhoa.value);
   if (file.files[0]) {
-    formData.append("avatar", file.files[0]);
+    formData.append("avatar", file.files[0]); // Nếu có file ảnh, thêm vào form data
   }
 
   // Gửi yêu cầu PUT/PATCH để cập nhật
   axios
     .patch(`/api/v1/users/${userId}`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "multipart/form-data", // Tiêu đề để gửi dữ liệu dạng form
       },
     })
     .then((response) => {
-      closeEditModalUser(userId);
+      closeEditModalUser(userId); // Đóng modal sau khi cập nhật thành công
     })
     .catch((error) => {
       console.error("Error updating user:", error);

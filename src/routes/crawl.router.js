@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 const express = require("express");
 const router = express.Router();
+=======
+// file ni để crawl data = selenium
+
+>>>>>>> 472178f3e4c9d56cb11d9d1a6d58530b5c48ee92
 const puppeteer = require("puppeteer");
 const axios = require("axios");
 const fs = require("fs");

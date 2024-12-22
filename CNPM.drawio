@@ -145,13 +145,13 @@
             <mxPoint x="395" y="580" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-48" value="Phân công xét duyệt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-48" value="phân công xét duyệt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="545" y="445" width="80" height="50" as="geometry" />
         </mxCell>
         <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-50" value="Xem&amp;nbsp; đề tài/ bài báo" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="545" y="562.5" width="80" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-51" value="Phân công chấm điểm" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-51" value="phân công chấm điểm" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="545" y="672.5" width="80" height="50" as="geometry" />
         </mxCell>
         <mxCell id="9Q6M9egjWgZ-Fv7hqC8X-52" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.643;exitY=0.064;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="9Q6M9egjWgZ-Fv7hqC8X-46" target="9Q6M9egjWgZ-Fv7hqC8X-48">

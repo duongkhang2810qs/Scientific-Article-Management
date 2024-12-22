@@ -1,0 +1,127 @@
+extends index
+
+block content	
+  .col-lg-12
+    .card.shadow.mb-4
+      .card-header.py-3.bg-gradient-primary.text-white
+        h5.text-center.m-0.font-weight-bold Danh Sách Người Dùng
+        button.btn.btn-light.text-primary.btn-sm(type="button", onclick='window.location.href="/newuser"')
+          i.fa.fa-plus-circle.mr-1
+          | Thêm Người Dùng
+      .card-body.bg-light
+        table.table.table-striped.table-bordered.table-hover.mt-3#list
+          thead.bg-primary.text-white
+            tr
+              th.text-center #
+              th Tên
+              th Email
+              th Vai trò
+              th.text-center Hành động
+          tbody
+            -var count = 1;
+            each user in users
+              tr
+                td.text-center.font-weight-bold #{count++}
+                td.text-dark.font-weight-bold= user.name 
+                td.text-muted= user.email
+                td.text-center
+                  span.badge.badge-pill(
+                    class=(user.role == "sinh_vien" ? 'badge-info' : user.role == "giang_vien" ? 'badge-success' : 'badge-secondary')
+                  ) 
+                    if user.role == "sinh_vien"
+                      | Sinh viên
+                    else if user.role == "giang_vien"
+                      | Giảng viên
+                    else
+                      | #{user.role}
+                td.text-center
+                  .btn-group
+                    button.btn.btn-secondary.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown", aria-expanded="true")
+                      i.fa.fa-cogs
+                      |  Hành động
+                    .dropdown-menu
+                      a.dropdown-item.text-primary(href=`/users/${user._id}`)
+                        i.fa.fa-eye.mr-2
+                        | Xem
+                      .dropdown-divider
+                      a.dropdown-item.text-warning(type="button", onclick=`editUser('${user._id}')`)
+                        i.fa.fa-edit.mr-2
+                        | Chỉnh sửa
+                      .dropdown-divider
+                      a.dropdown-item.text-danger(type="button", onclick=`deleteUser('${user._id}')`)
+                        i.fa.fa-trash.mr-2
+                        | Xóa
+              include edituser                
+  style.
+    .card {
+      border-radius: 12px;
+      //- overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      background: linear-gradient(45deg, #007bff, #6610f2);
+      padding: 15px;
+      font-size: 1.2rem;
+    }
+    .card-header h5 {
+      margin: 0;
+    }
+    .btn.btn-light {
+      font-size: 0.85rem;
+      border-radius: 20px;
+    }
+    .btn-group .dropdown-menu {
+      min-width: 150px;
+      padding: 10px 0;
+    }
+    .dropdown-menu a, .dropdown-menu button {
+      font-size: 0.9rem;
+    }
+    .dropdown-menu a i, .dropdown-menu button i {
+      margin-right: 8px;
+    }
+    table {
+      font-size: 0.9rem;
+    }
+    table td, table th {
+      vertical-align: middle !important;
+    }
+    table td p {
+      margin: 0 !important;
+    }
+    table .truncate {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .badge {
+      font-size: 0.85rem;
+      padding: 8px 12px;
+    }
+    .btn-group .dropdown-menu .dropdown-divider {
+      margin: 5px 0;
+    }
+    .card-header .btn {
+      margin-left: auto; /* Moves the button to the right */
+    }
+    
+  script.
+    $(document).ready(function(){
+      $('#list').dataTable({
+        responsive: true,
+        language: {
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          zeroRecords: "Không có dữ liệu",
+          info: "Hiển thị _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Không có bản ghi nào",
+          search: "Tìm kiếm:",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Sau",
+            previous: "Trước"
+          }
+        }
+      });
+    });
