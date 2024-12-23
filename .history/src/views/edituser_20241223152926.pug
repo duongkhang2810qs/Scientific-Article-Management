@@ -67,9 +67,9 @@ div(id=`editUser-${user._id}`).modal
                 else
                     input(type="hidden" name="editLop" class="form-control"  id=`editLop-${user._id}` value="")
                 if user.role == "giang_vien"
-                    label Học vị
+                    label Trình độ
                     select(name="editTrinhDo" class="form-control"  id=`editTrinhDo-${user._id}` )
-                        option(value="" disabled selected) -- Chọn Học vị --
+                        option(value="" disabled selected) -- Chọn trình độ --
                         option(value="Cử nhân") Cử nhân
                         option(value="Kỹ sư") Kỹ sư
                         option(value="Thạc sĩ") Thạc sĩ
