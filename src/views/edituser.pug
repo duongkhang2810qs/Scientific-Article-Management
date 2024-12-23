@@ -48,15 +48,24 @@ div(id=`editUser-${user._id}`).modal
             form(class=`edit-form-${user._id}`)
                 label Tên
                 input(type="text" name="editName" class="form-control" id=`editName-${user._id}`  required)
+
                 label Email
                 input(name="editEmail" class="form-control"  id=`editEmail-${user._id}`  )        
+                
                 label Số điện thoại
                 input(name="editSdt" class="form-control"  id=`editSdt-${user._id}`  )    
+                
                 label Giới tính
                 select(name="editGioiTinh", class="form-control", id=`editGioiTinh-${user._id}`)
                     option(value="" disabled selected) -- Chọn giới tính --
                     option(value="Nam") Nam
                     option(value="Nữ") Nữ
+                
+                if user.role == "sinh_vien"
+                    label Lớp
+                    input(name="editLop" class="form-control"  id=`editLop-${user._id}`  )
+                else
+                    input(type="hidden" name="editLop" class="form-control"  id=`editLop-${user._id}` value="")
                 if user.role == "giang_vien"
                     label Trình độ
                     select(name="editTrinhDo" class="form-control"  id=`editTrinhDo-${user._id}` )
@@ -69,6 +78,7 @@ div(id=`editUser-${user._id}`).modal
                         option(value="GS.TS") GS.TS
                 else 
                     input(type="hidden" name="editTrinhDo" class="form-control"  id=`editTrinhDo-${user._id}` value="")
+                
                 if user.role == "admin" 
                     input(type="hidden" name="editKhoa" class="form-control"  id=`editKhoa-${user._id}` value="")
                 else   
@@ -89,10 +99,12 @@ div(id=`editUser-${user._id}`).modal
                         option(value="Xây dựng Cầu - Đường") Xây dựng Cầu - Đường
                         option(value="Xây dụng Công trình Thủy") Xây dụng Công trình Thủy
                         option(value="Xây dựng Dân dụng và Công nghiệp") Xây dựng Dân dụng và Công nghiệp
+                
                 label.control-label Avatar
                 .custom-file
-                  input(type="file" class="custom-file-input" id=`photo-${user._id}` name=`photo-${user._id}` )
-                  label.custom-file-label(for=`photo-${user._id}`) Chọn file
+                    input(type="file" class="custom-file-input" id=`photo-${user._id}` name=`photo-${user._id}` )
+                    label.custom-file-label(for=`photo-${user._id}`) Chọn file
+                
                 .col-lg-12.text-right.justify-content-center.d-flex.mt-3
                     button.btn.btn-primary.mr-2(type="button" onclick=`saveEditFormUser('${user._id}')`) Lưu
                     button.btn.btn-secondary(type="button" onclick=`closeEditModalUser('${user._id}')`) Hủy

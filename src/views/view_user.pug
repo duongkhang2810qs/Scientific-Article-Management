@@ -76,6 +76,13 @@ block content
               span.font-weight-bold Giới Tính: 
               span.text-muted= data.gioitinh
           
+          if data.role == "sinh_vien"
+            .col-md-6.mb-4
+              .bg-white.p-3.shadow-sm.rounded
+                i.fa.fa-venus-mars.text-info.mr-2
+                span.font-weight-bold Lớp: 
+                span.text-muted= data.lop
+          
           if data.role == "giang_vien"
             .col-md-6.mb-4
               .bg-white.p-3.shadow-sm.rounded

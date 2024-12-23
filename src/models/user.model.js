@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema(
     sdt: String,
     khoa: String,
     trinhdo: String,
+    lop: String,
     // Ảnh đại diện người dùng.
     avatar: {
       type: String,

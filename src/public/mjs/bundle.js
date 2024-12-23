@@ -12317,7 +12317,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var changePass = function changePass(_x, _x2, _x3, _x4, _x5) {
-  return (_ref = _ref || _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(name, email, gioitinh, sdt, khoa, trinhdo) {
+  return (_ref = _ref || _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(name, email, gioitinh, sdt, khoa, trinhdo, lop) {
     var res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -12333,7 +12333,8 @@ var changePass = function changePass(_x, _x2, _x3, _x4, _x5) {
               gioitinh: gioitinh,
               sdt: sdt,
               khoa: khoa,
-              trinhdo: trinhdo
+              trinhdo: trinhdo,
+              lop: lop
             }
           });
         case 3:
@@ -12658,7 +12659,8 @@ if (_fixuser.fixuser) {
     var sdt = document.getElementById("sodienthoai").value;
     var khoa = document.getElementById("khoa").value;
     var trinhdo = document.getElementById("trinhdo").value;
-    (0, _changePass.changePass)(name, email, gioitinh, sdt, khoa,trinhdo);
+    var lop = document.getElementById("lop").value;
+    (0, _changePass.changePass)(name, email, gioitinh, sdt, khoa, trinhdo, lop);
   });
 }
 if (projectform) {
