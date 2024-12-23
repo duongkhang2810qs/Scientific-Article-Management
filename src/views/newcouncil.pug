@@ -89,7 +89,7 @@ div(id=`newcouncil`).modal
                     giangVienList.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
+                        option.textContent = `${user.name} (Trình độ: ${user.trinhdo}, Khoa: ${user.khoa})`;
                         userDropdowns.forEach(function(dropdown) {
                             dropdown.appendChild(option.cloneNode(true));
                         });

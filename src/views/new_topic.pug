@@ -42,10 +42,11 @@ block content
                                 label.control-label Ngày kết thúc
                                 input#ngayketthuc.form-control.form-control-sm(type='date', autocomplete='off', name='end_date', value='')
                     .row
-                        .col-md-6
-                            .form-group
-                                label.control-label Mã ngành
-                                input#MaNganh.form-control.form-control-sm(type='text', name='manager_id', value='')
+                        //- .col-md-6
+                        //-     .form-group
+                        //-         label.control-label Mã ngành
+                        //-         input#MaNganh.form-control.form-control-sm(type='text', name='manager_id', value='')
+                        input#MaNganh.form-control.form-control-sm(type='hidden', name='manager_id', value='')
                         .col-md-6
                             .form-group
                                 label.control-label Quản lý dự án
@@ -61,11 +62,9 @@ block content
                                 .custom-file
                                     input(type="file" class="custom-file-input" id=`file_de_tai` name=`file_de_tai` )
                                     label.custom-file-label(for=`file_de_tai`) Chọn file
-                    .row
-                        .col-md-12
+                        .col-md-6
                             .form-group
                                 label.control-label(for =" ") Mô tả
-                                
                                 input#mota.form-control.form-control-sm(type='text', name='name', value='')
 
                     .row 
@@ -96,7 +95,7 @@ block content
                     lecturers.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
+                        option.textContent = `${user.name} (Trình độ: ${user.trinhdo}, Khoa: ${user.khoa})`;
                         lecturerDropdown.appendChild(option);
                     });
 
@@ -105,7 +104,7 @@ block content
                     students.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = `${user.name} (Khoa: ${user.khoa})`;
+                        option.textContent = `${user.name} (Lớp: ${user.lop}, Khoa: ${user.khoa})`;
                         userDropdown.appendChild(option);
                     });
                 })

@@ -31,7 +31,8 @@ const TopicSchema = mongoose.Schema(
     GhiChu: String,
     MaNganh: {
       type: String,
-      required: [true, "vui lòng nhập mã ngành"],
+      // required: [true, "vui lòng nhập mã ngành"],
+      default: "", 
     },
     KetQua: String,
     //Trạng thái hiện tại của đề tài.
