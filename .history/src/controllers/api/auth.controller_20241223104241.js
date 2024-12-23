@@ -1,4 +1,3 @@
-// authentication: xác thực người dùng 
 const userModels = require("../../models/user.model.js"); //  Model đại diện cho tài liệu User trong MongoDB.
 const catchAsync = require("../../utils/catchAsync.js"); // Wrapper để xử lý các hàm bất đồng bộ, giúp tự động bắt lỗi và chuyển chúng đến middleware xử lý lỗi.
 const jwt = require("jsonwebtoken"); //Được sử dụng để tạo và xác minh các mã thông báo JWT ( Json Web Token).
