@@ -95,7 +95,7 @@ block content
                     lecturers.forEach(function(user) {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = `${user.name} (Trình độ: ${user.trinhdo}, Khoa: ${user.khoa})`;
+                        option.textContent = `${user.name} (Học vị: ${user.trinhdo}, Khoa: ${user.khoa})`;
                         lecturerDropdown.appendChild(option);
                     });
 
