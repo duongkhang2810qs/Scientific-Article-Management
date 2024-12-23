@@ -75,7 +75,8 @@ if (fixuser) {
     const gioitinh = document.getElementById("gioitinh").value;
     const sdt = document.getElementById("sodienthoai").value;
     const khoa = document.getElementById("khoa").value;
-    changePass(name, email, gioitinh, sdt, khoa);
+    const trinhdo = document.getElementById("trinhdo").value;
+    changePass(name, email, gioitinh, sdt, khoa, trinhdo);
   });
 }
 

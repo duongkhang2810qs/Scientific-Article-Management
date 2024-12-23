@@ -20,12 +20,14 @@ function showEditFormUser(userData) {
   const editSdt = document.getElementById(`editSdt-${userData._id}`);
   const editGioiTinh = document.getElementById(`editGioiTinh-${userData._id}`);
   const editKhoa = document.getElementById(`editKhoa-${userData._id}`);
+  const editTrinhDo = document.getElementById(`editTrinhDo-${userData._id}`);
   // Điền dữ liệu vào biểu mẫu chỉnh sửa
   if (userData.name) editName.value = userData.name;
   if (userData.email) editEmail.value = userData.email;
   if (userData.sdt) editSdt.value = userData.sdt;
   if (userData.gioitinh) editGioiTinh.value = userData.gioitinh;
   if (userData.khoa) editKhoa.value = userData.khoa;
+  if (userData.trinhdo) editTrinhDo.value = userData.trinhdo;
 
   // Hiển thị modal chỉnh sửa
   const editModal = document.getElementById(`editUser-${userData._id}`);
@@ -46,6 +48,7 @@ function saveEditFormUser(userId) {
   const editSdt = document.getElementById(`editSdt-${userId}`);
   const editGioiTinh = document.getElementById(`editGioiTinh-${userId}`);
   const editKhoa = document.getElementById(`editKhoa-${userId}`);
+  const editTrinhDo = document.getElementById(`editTrinhDo-${userId}`);
   const file = document.getElementById(`photo-${userId}`);
 
   const formData = new FormData();
@@ -54,6 +57,7 @@ function saveEditFormUser(userId) {
   formData.append("sdt", editSdt.value);
   formData.append("gioitinh", editGioiTinh.value);
   formData.append("khoa", editKhoa.value);
+  formData.append("trinhdo", editTrinhDo.value);
   if (file.files[0]) {
     formData.append("avatar", file.files[0]); // Nếu có file ảnh, thêm vào form data
   }

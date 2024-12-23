@@ -7,7 +7,7 @@ import { showAlert } from "./alerts.js";
 // gioitinh: Giới tính
 // sdt: Số điện thoại
 // khoa: Khoa của người dùng
-export const changePass = async (name, email, gioitinh, sdt, khoa) => {
+export const changePass = async (name, email, gioitinh, sdt, khoa, trinhdo) => {
   try {    // Gửi yêu cầu PATCH đến API để cập nhật thông tin
     const res = await axios({
       method: "PATCH", // Sử dụng phương thức HTTP PATCH
@@ -18,6 +18,7 @@ export const changePass = async (name, email, gioitinh, sdt, khoa) => {
         gioitinh, // Giới tính
         sdt, // Số điện thoại
         khoa, // Khoa của người dùng
+        trinhdo,
       },
     });
 
