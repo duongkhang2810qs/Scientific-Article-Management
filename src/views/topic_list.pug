@@ -80,7 +80,7 @@ block content
                       -if(topic.NgayKetThuc)
                         b= topic.NgayKetThuc.toLocaleDateString('vi-VN')
                     td.text-center
-                      -if(topic.NgayKetThuc && new Date(topic.NgayKetThuc).getTime() < new Date().getTime())
+                      -if(topic.NgayKetThuc && new Date(topic.NgayKetThuc).getTime() < new Date().getTime() && topic.TrangThai != "hoàn thành")
                         span.badge.badge-danger quá hạn
                       -else
                         -if (topic.TrangThai == "hoàn thành")
