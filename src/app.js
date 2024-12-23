@@ -32,11 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-<<<<<<< HEAD
-app.use("/api/v1/crawl", crawlRouter);
-=======
 app.use("/api/v1/crawl", crawlImmediately); // Gọi hàm crawl ngay khi server chạy
->>>>>>> 472178f3e4c9d56cb11d9d1a6d58530b5c48ee92
 crawlImmediately();
 
 // Tích hợp Swagger để hiển thị tài liệu API
