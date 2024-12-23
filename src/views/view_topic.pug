@@ -102,7 +102,11 @@ block content
                         dd 
                             .d-flex.align-items-center.mt-1                                        
                                 img.img-circle.img-thumbnail.p-0.shadow-sm.border-info.img-sm.mr-3(src=`/img/users/${data.GiangVien.avatar}`, alt="Avatar")
-                                b= data.GiangVien.name 
+                                div
+                                    div.text-dark.font-weight-bold #{data.GiangVien.name}
+                                    div.text-dark Học vị: #{data.GiangVien.trinhdo}
+                                    div.text-dark Khoa: #{data.GiangVien.khoa}
+
                     .card-header
                         span 
                             b Thành viên nhóm:
@@ -110,7 +114,8 @@ block content
                     .card-body                        
                         ul.clearfix 
                             each ThanhVien in data.ThanhVien                       
-                                li= ThanhVien.name
+                                //- li= ThanhVien.name
+                                li= `${ThanhVien.name} - Lớp: ${ThanhVien.lop}`
                       
             if user.role =="giang_vien" & data.TrangThai=="đang xét duyệt"           
                 .col-md-8
