@@ -97,19 +97,19 @@ block content
                 span.font-weight-bold Khoa: 
                 span.text-muted= data.khoa
 
-          if data.role == "sinh_vien" && data.DeTai.length > 0
-            .col-md-6.mb-4
-              .bg-white.p-3.shadow-sm.rounded
-                i.fa.fa-tasks.text-info.mr-2
-                span.font-weight-bold Tổng Đề Tài: 
-                span.text-muted #{data.DeTai.length} đề tài
-          else
-            if data.role == "sinh_vien"
-              .col-md-6.mb-4
-                .bg-white.p-3.shadow-sm.rounded
-                  i.fa.fa-tasks.text-danger.mr-2
-                  span.font-weight-bold Tổng Đề Tài: 
-                  span.text-muted Không có dữ liệu
+          //- if data.role == "sinh_vien" && data.DeTai.length > 0
+          //-   .col-md-6.mb-4
+          //-     .bg-white.p-3.shadow-sm.rounded
+          //-       i.fa.fa-tasks.text-info.mr-2
+          //-       span.font-weight-bold Tổng Đề Tài: 
+          //-       span.text-muted #{data.DeTai.length} đề tài
+          //- else
+          //-   if data.role == "sinh_vien"
+          //-     .col-md-6.mb-4
+          //-       .bg-white.p-3.shadow-sm.rounded
+          //-         i.fa.fa-tasks.text-danger.mr-2
+          //-         span.font-weight-bold Tổng Đề Tài: 
+          //-         span.text-muted Không có dữ liệu
 
         .text-center.mt-4
           if me
